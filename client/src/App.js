@@ -14,7 +14,7 @@ import IndividualClub from './pages/IndividualClub';
 import CreateClub from './pages/CreateClub';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
-//import Events from './pages/events/Events';
+import Events from './pages/events/Events';
 //import IndividualEvent from './pages/events/IndividualEvent';
 //import BasicInfo from './pages/events/createEvent/BasicInfo';
 //import Logistics from './pages/events/createEvent/Logistics';
@@ -61,11 +61,11 @@ function App() {
             <Route path='/clubs/create' element={<CreateClub />} />
             {/*
             <Route path='/events/createEvent/basic' element={<BasicInfo />} /> */}
+            <Route path='/events' element={<Events />} />
             {/* <Route
               path='/events/createEvent/logistics'
               element={<Logistics />}
             />
-            <Route path='/events' element={<Events />} />
             <Route path='/events/:slug' element={<IndividualEvent />} /> */}
           </Routes>
           <Footer />
