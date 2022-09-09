@@ -1,10 +1,11 @@
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import {
   ApolloClient,
-  InMemoryCache,
+  //InMemoryCache,
   ApolloProvider,
   createHttpLink,
 } from '@apollo/client';
+import { InMemoryLRUCache } from '@apollo/utils.keyvaluecache';
 import { setContext } from '@apollo/client/link/context';
 import Container from 'react-bootstrap/Container';
 import Header from './components/Header';
@@ -44,7 +45,7 @@ const authLink = setContext((_, { headers }) => {
 const client = new ApolloClient({
   // Set up our client to execute the `authLink` middleware prior to making the request to our GraphQL API
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryLRUCache(),
 });
 
 function App() {
