@@ -1,5 +1,4 @@
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
-
 import {
   ApolloClient,
   InMemoryCache,
