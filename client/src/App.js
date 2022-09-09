@@ -55,7 +55,7 @@ function App() {
           <Header />
           <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/profile' element={<Profile />} />
+            <Route exact path='/profile' element={<Profile />} />
             {/* <Route path='/clubs' element={<Clubs />} />
             <Route path='/clubs/:slug' element={<IndividualClub />} />
             <Route path='/clubs/create' element={<CreateClub />} />
