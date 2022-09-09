@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, Navigate, NavLink, useNavigate } from 'react-router-dom';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
@@ -36,7 +36,7 @@ const MainNav = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const user = await login({
+      const user = await addUser({
         variables: {
           email: email,
           password: password,
@@ -44,8 +44,10 @@ const MainNav = () => {
           lastName: lastName,
         },
       });
-      const token = user.data.login.token;
+      console.log(user);
+      const token = user.data.addUser.token;
       Auth.login(token);
+      console.log(token);
       navigate('/profile');
     } catch (e) {
       console.log(e);
@@ -60,7 +62,9 @@ const MainNav = () => {
       });
       const token = mutationResponse.data.login.token;
       Auth.login(token);
-      window.location.href = '/profile';
+      if (token) {
+        window.location.href = '/profile';
+      }
     } catch (e) {
       console.log(e);
     }

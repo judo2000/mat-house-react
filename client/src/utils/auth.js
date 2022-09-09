@@ -38,6 +38,11 @@ class AuthService {
     window.location.assign('/');
   }
 
+  addUser(token) {
+    localStorage.setItem('token', token);
+    window.location.assign('/');
+  }
+
   logout() {
     // Clear user token and profile data from localStorage
     localStorage.removeItem('token');

@@ -1,4 +1,4 @@
-import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import {
   ApolloClient,
   InMemoryCache,
@@ -51,28 +51,26 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <Container>
-        <Router>
-          <Header />
-          <Routes>
-            <Route exact path='/' element={<Home />}>
-              Home
-            </Route>
-            <Route exact path='/profile' element={<Profile />}>
-              Profile
-            </Route>
-            {/* <Route path='/clubs' element={<Clubs />} />
+        <Header />
+        <Routes>
+          <Route exact path='/' element={<Home />}>
+            Home
+          </Route>
+          <Route exact path='/profile' element={<Profile />}>
+            Profile
+          </Route>
+          {/* <Route path='/clubs' element={<Clubs />} />
             <Route path='/clubs/:slug' element={<IndividualClub />} />
             <Route path='/clubs/create' element={<CreateClub />} />
             <Route path='/events/createEvent/basic' element={<BasicInfo />} /> */}
-            {/* <Route
+          {/* <Route
               path='/events/createEvent/logistics'
               element={<Logistics />}
             />
             <Route path='/events' element={<Events />} />
             <Route path='/events/:slug' element={<IndividualEvent />} /> */}
-          </Routes>
-          <Footer />
-        </Router>
+        </Routes>
+        <Footer />
       </Container>
     </ApolloProvider>
   );

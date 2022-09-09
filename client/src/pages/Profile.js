@@ -10,12 +10,12 @@ import Loader from '../components/Loader';
 const Profile = () => {
   const token = Auth.loggedIn() ? Auth.getToken() : null;
   console.log(token);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!token) {
-      navigate('/');
-    }
-  }, [navigate, token]);
+  //const navigate = useNavigate();
+  // useEffect(() => {
+  //   if (!token) {
+  //     navigate('/');
+  //   }
+  // }, [navigate, token]);
   // checks for user if logged in
   if (token) {
     const user = jwt(token);
