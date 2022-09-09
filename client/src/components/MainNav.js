@@ -46,7 +46,7 @@ const MainNav = () => {
       });
       const token = user.data.login.token;
       Auth.login(token);
-      window.location.href = '/profile';
+      navigate('/profile');
     } catch (e) {
       console.log(e);
     }
