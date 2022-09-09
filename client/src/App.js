@@ -54,8 +54,12 @@ function App() {
         <Router>
           <Header />
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route exact path='/profile' element={<Profile />} />
+            <Route exact path='/' element={<Home />}>
+              Home
+            </Route>
+            <Route exact path='/profile' element={<Profile />}>
+              Profile
+            </Route>
             {/* <Route path='/clubs' element={<Clubs />} />
             <Route path='/clubs/:slug' element={<IndividualClub />} />
             <Route path='/clubs/create' element={<CreateClub />} />
