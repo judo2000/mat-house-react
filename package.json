@@ -16,6 +16,7 @@
     "concurrently": "^7.4.0"
   },
   "dependencies": {
-    "dotenv": "^16.0.2"
+    "dotenv": "^16.0.2",
+    "react-quill": "^2.0.0"
   }
 }
