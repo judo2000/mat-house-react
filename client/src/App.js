@@ -15,9 +15,9 @@ import CreateClub from './pages/CreateClub';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import Events from './pages/events/Events';
-//import IndividualEvent from './pages/events/IndividualEvent';
-//import BasicInfo from './pages/events/createEvent/BasicInfo';
-//import Logistics from './pages/events/createEvent/Logistics';
+import IndividualEvent from './pages/events/IndividualEvent';
+import BasicInfo from './pages/events/createEvent/BasicInfo';
+import Logistics from './pages/events/createEvent/Logistics';
 
 //Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -59,14 +59,13 @@ function App() {
             <Route path='/clubs' element={<Clubs />} />
             <Route path='/clubs/:slug' element={<IndividualClub />} />
             <Route path='/clubs/create' element={<CreateClub />} />
-            {/*
-            <Route path='/events/createEvent/basic' element={<BasicInfo />} /> */}
+            <Route path='/events/createEvent/basic' element={<BasicInfo />} />
             <Route path='/events' element={<Events />} />
-            {/* <Route
+            <Route
               path='/events/createEvent/logistics'
               element={<Logistics />}
             />
-            <Route path='/events/:slug' element={<IndividualEvent />} /> */}
+            <Route path='/events/:slug' element={<IndividualEvent />} />
           </Routes>
           <Footer />
         </Router>
