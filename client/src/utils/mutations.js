@@ -166,18 +166,21 @@ export const CREATE_EVENT = gql`
     $style: String!
     $eventType: String!
     $eventName: String!
+    $customBasicFields: [String]
     $createdBy: String!
   ) {
     addEvent(
       style: $style
       eventType: $eventType
       eventName: $eventName
+      customBasicFields: $customBasicFields
       createdBy: $createdBy
     ) {
       _id
       style
       eventType
       eventName
+      customBasicFields
     }
   }
 `;

@@ -39,10 +39,12 @@ const typeDefs = gql`
     style: String
     eventType: String
     eventName: String
+    shortDesc: String
+    longDesc: String
     slug: String
     createdBy: [Club]
     eventCreator: [Club]
-    customFields: [String]
+    customBasicFields: [String]
   }
 
   type Auth {
@@ -112,8 +114,10 @@ const typeDefs = gql`
       style: String!
       eventType: String!
       eventName: String!
+      shortDesc: String
+      longDesc: String
       createdBy: String!
-      customFields: [String]
+      customBasicFields: [String]
     ): Event
   }
 `;

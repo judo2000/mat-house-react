@@ -15,11 +15,17 @@ const eventSchema = new Schema({
     required: true,
     unique: true,
   },
-  // customFields: [
-  //   {
-  //     type: String,
-  //   },
-  // ],
+  shortDesc: {
+    type: String,
+  },
+  longDesc: {
+    type: String,
+  },
+  customBasicFields: [
+    {
+      type: String,
+    },
+  ],
   createdBy: [
     {
       type: Schema.Types.ObjectId,

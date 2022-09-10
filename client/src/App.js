@@ -59,13 +59,13 @@ function App() {
             <Route path='/clubs' element={<Clubs />} />
             <Route path='/clubs/:slug' element={<IndividualClub />} />
             <Route path='/clubs/create' element={<CreateClub />} />
-            <Route path='/events/createEvent/basic' element={<BasicInfo />} />
             <Route path='/events' element={<Events />} />
+            <Route path='/events/:slug' element={<IndividualEvent />} />
+            <Route path='/events/createEvent/basic' element={<BasicInfo />} />
             <Route
               path='/events/createEvent/logistics'
               element={<Logistics />}
             />
-            <Route path='/events/:slug' element={<IndividualEvent />} />
           </Routes>
           <Footer />
         </Router>

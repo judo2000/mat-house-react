@@ -362,7 +362,7 @@ input:focus::placeholder {
   color: #000000;
 }
 
-.col-form-label {
+.form-label {
   font-family: 'Arial Black', Gadget, sans-serif;
   font-size: 14px;
   text-align: right;
