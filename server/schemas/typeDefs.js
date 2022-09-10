@@ -44,6 +44,7 @@ const typeDefs = gql`
     slug: String
     createdBy: [Club]
     eventCreator: [Club]
+    waiver: String
     customBasicFields: [String]
   }
 
@@ -116,6 +117,7 @@ const typeDefs = gql`
       eventName: String!
       shortDesc: String
       longDesc: String
+      waiver: String
       createdBy: String!
       customBasicFields: [String]
     ): Event

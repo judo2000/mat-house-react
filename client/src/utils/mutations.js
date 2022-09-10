@@ -166,6 +166,7 @@ export const CREATE_EVENT = gql`
     $style: String!
     $eventType: String!
     $eventName: String!
+    $waiver: String
     $customBasicFields: [String]
     $createdBy: String!
   ) {
@@ -173,6 +174,7 @@ export const CREATE_EVENT = gql`
       style: $style
       eventType: $eventType
       eventName: $eventName
+      waiver: $waiver
       customBasicFields: $customBasicFields
       createdBy: $createdBy
     ) {
@@ -180,6 +182,7 @@ export const CREATE_EVENT = gql`
       style
       eventType
       eventName
+      waiver
       customBasicFields
     }
   }

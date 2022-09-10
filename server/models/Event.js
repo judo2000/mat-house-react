@@ -21,6 +21,9 @@ const eventSchema = new Schema({
   longDesc: {
     type: String,
   },
+  waiver: {
+    type: String,
+  },
   customBasicFields: [
     {
       type: String,

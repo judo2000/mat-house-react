@@ -1,20 +1,13 @@
 import React, { useState } from 'react';
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import FormContainer from '../../../components/FormContainer';
 import EventSteps from '../../../components/events/EventSteps';
-import { Button, Card, Col, Form, Row } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { CREATE_EVENT } from '../../../utils/mutations';
 import ReactQuill from 'react-quill';
 
 const BasicInfo = () => {
-  const { slug } = useParams();
-
   const search = useLocation().search;
 
   let [count, setCount] = useState(0);
@@ -27,9 +20,9 @@ const BasicInfo = () => {
   const [waiver, setWaiver] = useState('');
   const customBasicFields = [];
 
-  const [addEvent, { error }] = useMutation(CREATE_EVENT);
+  const [addEvent] = useMutation(CREATE_EVENT);
 
-  const [errorMessage, setErrorMessage] = useState('');
+  //const [errorMessage, setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -53,18 +46,20 @@ const BasicInfo = () => {
           style,
           eventType,
           eventName,
+          waiver,
           customBasicFields: customBasicFields,
           createdBy,
         },
       });
-      console.log(data.addEvent._id);
+      console.log(data);
       //navigate(`/events/createEvent/logistics?eID=${data.addEvent._id}`);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleAddFields = async () => {
+  const handleAddFields = async (e) => {
+    e.preventDefault();
     count = count + 1;
     setCount(count);
     let customFieldsDiv = document.getElementById('customFields');
@@ -75,7 +70,7 @@ const BasicInfo = () => {
           <div class='col'>
             <div class='row'>
               <div class='text-end col-md-2 col-sm-12'>
-                <div class='form-label'>
+                <div class='form-label text-center'>
                   Custom Field ${count}
                 </div>
               </div>
@@ -111,7 +106,7 @@ const BasicInfo = () => {
             <Form.Group className='mb-3'>
               <Col>
                 <Row>
-                  <Col sm={12} md={2}>
+                  <Col sm={12} md={2} className='text-center'>
                     <Form.Label className='form-label'>
                       Style <span className='text-danger'>*</span>
                     </Form.Label>
@@ -143,7 +138,7 @@ const BasicInfo = () => {
             <Form.Group className='mb-3'>
               <Col>
                 <Row>
-                  <Col sm={12} md={2} className='text-end'>
+                  <Col sm={12} md={2} className='text-center'>
                     <Form.Label className='form-label'>
                       Event Type <span className='text-danger'>*</span>
                     </Form.Label>
@@ -176,7 +171,7 @@ const BasicInfo = () => {
               <Row>
                 <Col>
                   <Row>
-                    <Col sm={12} md={2} className='text-end'>
+                    <Col sm={12} md={2} className='text-center'>
                       <Form.Label className='form-label'>
                         Event Name <span className='text-danger'>*</span>
                       </Form.Label>
@@ -201,7 +196,7 @@ const BasicInfo = () => {
             <Form.Group className='mb-3'>
               <Col>
                 <Row>
-                  <Col sm={12} md={2} className='text-end'>
+                  <Col sm={12} md={2} className='text-center'>
                     <Form.Label className='form-label'>
                       Short Description
                     </Form.Label>
@@ -223,7 +218,7 @@ const BasicInfo = () => {
             <Form.Group className='mb-3'>
               <Col>
                 <Row>
-                  <Col sm={12} md={2} className='text-end'>
+                  <Col sm={12} md={2} className='text-center'>
                     <Form.Label className='form-label'>
                       Long Description
                     </Form.Label>
@@ -233,6 +228,26 @@ const BasicInfo = () => {
                       value={longDesc ? longDesc : ''}
                       // onChange={(e) => setContent(e.target.value)}
                       onChange={setLongDesc}
+                      theme='snow'
+                    ></ReactQuill>
+                  </Col>
+                </Row>
+              </Col>
+            </Form.Group>
+          </Row>
+
+          <Row>
+            <Form.Group className='mb-3'>
+              <Col>
+                <Row>
+                  <Col sm={12} md={2} className='text-center'>
+                    <Form.Label className='form-label'>Waiver</Form.Label>
+                  </Col>
+                  <Col sm={12} md='8' className='text-start'>
+                    <ReactQuill
+                      value={waiver ? waiver : ''}
+                      // onChange={(e) => setContent(e.target.value)}
+                      onChange={setWaiver}
                       theme='snow'
                     ></ReactQuill>
                   </Col>
