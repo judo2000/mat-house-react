@@ -165,6 +165,58 @@ const resolvers = {
       return event;
       //}
     },
+    updateClub: async (
+      parent,
+      {
+        style,
+        eventType,
+        eventName,
+        shortDesc,
+        longDesc,
+        waiver,
+        customBasicFields,
+        earlyFirstEntry,
+        lateFirstEntry,
+        earlyAddEntry,
+        lateAddEntry,
+        earlyEntryDeadline,
+        entryDeadline,
+        eventStartDate,
+        eventEndDate,
+        weighInStartTime,
+        weighInEndTime,
+        customLogisticsFields,
+      }
+    ) => {
+      try {
+        const event = Event.findOneAndUpdate(
+          { _id },
+          {
+            style,
+            eventType,
+            eventName,
+            shortDesc,
+            longDesc,
+            waiver,
+            customBasicFields,
+            earlyFirstEntry,
+            lateFirstEntry,
+            earlyAddEntry,
+            lateAddEntry,
+            earlyEntryDeadline,
+            entryDeadline,
+            eventStartDate,
+            eventEndDate,
+            weighInStartTime,
+            weighInEndTime,
+            customLogisticsFields,
+          }
+        );
+        const updatedEvent = await Event.findOneAndUpdate({ _id });
+
+        return updatedEvent;
+      } catch (error) {}
+    },
   },
   User: {
     clubsJoined: async (root) => {

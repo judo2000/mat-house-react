@@ -87,6 +87,9 @@ export const GET_EVENTS = gql`
         clubName
       }
       customFields
+      shortDesc
+      longDesc
+      waiver
     }
   }
 `;
@@ -103,6 +106,21 @@ export const GET_EVENT = gql`
         clubName
       }
       customFields
+      shortDesc
+      longDesc
+      waiver
+      customBasicFields
+      earlyFirstEntry
+      lateFirstEntry
+      earlyAddEntry
+      lateAddEntry
+      earlyEntryDeadline
+      entryDeadline
+      eventStartDate
+      eventEndDate
+      weighInStartTime
+      weighInEndTime
+      customLogisticsFields
     }
   }
 `;

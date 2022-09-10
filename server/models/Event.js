@@ -29,6 +29,41 @@ const eventSchema = new Schema({
       type: String,
     },
   ],
+  earlyFirstEntry: {
+    type: Number,
+  },
+  lateFirstEntry: {
+    type: Number,
+  },
+  earlyAddEntry: {
+    type: Number,
+  },
+  lateAddEntry: {
+    type: Number,
+  },
+  earlyEntryDeadline: {
+    type: Date,
+  },
+  entryDeadline: {
+    type: Date,
+  },
+  eventStartDate: {
+    type: Date,
+  },
+  eventEndDate: {
+    type: Date,
+  },
+  weighInStartTime: {
+    type: String,
+  },
+  weighInEndTime: {
+    type: String,
+  },
+  customLogisticsFields: [
+    {
+      type: String,
+    },
+  ],
   createdBy: [
     {
       type: Schema.Types.ObjectId,

@@ -121,6 +121,26 @@ const typeDefs = gql`
       createdBy: String!
       customBasicFields: [String]
     ): Event
+    updateEvent(
+      style: String!
+      eventType: String!
+      eventName: String!
+      shortDesc: String
+      longDesc: String
+      waiver: String
+      customBasicFields: [String]
+      earlyFirstEntry: String
+      lateFirstEntry: String
+      earlyAddEntry: String
+      lateAddEntry: String
+      earlyEntryDeadline: Date
+      entryDeadline: Date
+      eventStartDate: Date
+      eventEndDate: Date
+      weighInStartTime: String
+      weighInEndTime: String
+      customLogisticsFields: [String]
+    )
   }
 `;
 

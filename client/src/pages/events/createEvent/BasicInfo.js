@@ -52,7 +52,7 @@ const BasicInfo = () => {
         },
       });
       console.log(data);
-      //navigate(`/events/createEvent/logistics?eID=${data.addEvent._id}`);
+      navigate(`/events/createEvent/logistics?eID=${data.addEvent._id}`);
     } catch (error) {
       console.log(error);
     }
