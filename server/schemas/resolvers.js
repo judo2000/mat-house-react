@@ -207,7 +207,6 @@ const resolvers = {
             classSchedule,
             about,
             headInstructor,
-            logo,
           }
         );
         const updatedClub = await Club.findOneAndUpdate({ slug });
@@ -220,6 +219,7 @@ const resolvers = {
     updateEvent: async (
       parent,
       {
+        _id,
         style,
         eventType,
         eventName,
@@ -244,6 +244,7 @@ const resolvers = {
         const event = Event.findOneAndUpdate(
           { _id },
           {
+            _id,
             style,
             eventType,
             eventName,

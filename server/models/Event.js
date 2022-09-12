@@ -43,11 +43,10 @@ const eventSchema = new Schema({
   },
   lateAddEntry: {
     type: Number,
-    defualt: 0,
+    default: 0,
   },
   earlyEntryDeadline: {
     type: Date,
-    default: 0,
   },
   entryDeadline: {
     type: Date,

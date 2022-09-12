@@ -90,8 +90,7 @@ export const GET_EVENTS = gql`
       shortDesc
       longDesc
       waiver
-      earlyFirstEntry
-      lateFirstEntry
+      earlyEntryDeadline
     }
   }
 `;

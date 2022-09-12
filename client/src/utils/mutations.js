@@ -170,6 +170,7 @@ export const CREATE_EVENT = gql`
     $longDesc: String
     $waiver: String
     $customBasicFields: [String]
+    $earlyEntryDeadline: String!
     $createdBy: String!
   ) {
     addEvent(
@@ -179,6 +180,7 @@ export const CREATE_EVENT = gql`
       shortDesc: $shortDesc
       longDesc: $longDesc
       waiver: $waiver
+      earlyEntryDeadline: $earlyEntryDeadline
       customBasicFields: $customBasicFields
       createdBy: $createdBy
     ) {
@@ -188,6 +190,7 @@ export const CREATE_EVENT = gql`
       eventName
       shortDesc
       longDesc
+      earlyEntryDeadline
       waiver
       customBasicFields
     }
@@ -203,20 +206,18 @@ export const UPDATE_EVENT = gql`
     $shortDesc: String
     $longDesc: String
     $waiver: String
+    $earlyEntryDeadline: String! # $entryDeadline: Date!
     $customBasicFields: [String]
     $createdBy: String!
     $earlyFirstEntry: Number
     $lateFirstEntry: Number
     $earlyAddEntry: Number!
-    $lateAddEntry: Number!
-    $earlyEntryDeadline: Date!
-    $entryDeadline: Date!
-    $eventStartDate: Date!
-    $eventEndDate: Date
-    $weighInStartTime: String
-    $weighInEndTime: String
-    $customLogisticsFields: [String]
-  ) {
+    $lateAddEntry: Number! # $eventStartDate: Date!
+  ) # $eventEndDate: Date
+  # $weighInStartTime: String
+  # $weighInEndTime: String
+  # $customLogisticsFields: [String]
+  {
     updateEvent(
       style: $style
       eventType: $eventType
@@ -230,14 +231,11 @@ export const UPDATE_EVENT = gql`
       lateFirstEntry: $lateFirstEntry
       earlyAddEntry: $earlyAddEntry
       lateAddEntry: $lateAddEntry
-      earlyEntryDeadlin: $earlyEntryDeadline
-      entryDeadline: $entryDeadline
-      eventStartDate: $eventStartDate
-      eventEndDate: $eventEndDate
-      weighInStartTime: $weighInStartTime
-      weighInEndTime: $weighInEndTime
-      customLogisticsFields: $customLogisticsFields
-    ) {
+      earlyEntryDeadlin: $earlyEntryDeadline # entryDeadline: $entryDeadline # eventStartDate: $eventStartDate
+    ) # eventEndDate: $eventEndDate
+    # weighInStartTime: $weighInStartTime
+    # weighInEndTime: $weighInEndTime # customLogisticsFields: $customLogisticsFields
+    {
       _id
       style
       eventType
@@ -252,14 +250,14 @@ export const UPDATE_EVENT = gql`
       }
       earlyFirstEntry
       lateFirstEntry
-      # earlyAddEntry
-      # lateAddEntry
-      # earlyEntryDeadlin
-      # entryDeadline
-      # eventStartDate
-      # eventEndDate
-      # weighInStartTime
-      # weighInEndTime
+      earlyAddEntry
+      lateAddEntry
+      earlyEntryDeadlin
+      entryDeadline
+      eventStartDate
+      eventEndDate
+      weighInStartTime
+      weighInEndTime
       # customLogisticsFields
     }
   }

@@ -130,19 +130,20 @@ const typeDefs = gql`
       shortDesc: String
       longDesc: String
       waiver: String
+      earlyEntryDeadline: String!
       createdBy: String!
       customBasicFields: [String]
     ): Event
     updateEvent(
+      _id: String!
       style: String!
       eventType: String!
       eventName: String!
       shortDesc: String
       longDesc: String
       waiver: String
-      customBasicFields: [String]
-      earlyFirstEntry: Float
-      lateFirstEntry: Float
+      customBasicFields: [String] # lateAddEntry: Float
+      earlyEntryDeadline: String # earlyFirstEntry: Float # lateFirstEntry: Float # entryDeadline: String # earlyFirstEntry: Float # earlyAddEntry: Float # lateFirstEntry: Float # eventStartDate: String # eventEndDate: String # weighInStartTime: String # weighInEndTime: String
     ): Event
   }
 `;

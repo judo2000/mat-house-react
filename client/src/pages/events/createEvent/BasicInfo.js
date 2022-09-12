@@ -17,6 +17,7 @@ const BasicInfo = () => {
   const [eventName, setEventName] = useState('');
   const [shortDesc, setShortDesc] = useState('');
   const [longDesc, setLongDesc] = useState('');
+  const [earlyEntryDeadline, setEarlyEntryDeadline] = useState('');
   const [waiver, setWaiver] = useState('');
   const customBasicFields = [];
   // const [earlyFirstEntry, setEarlyFirstEntry] = useState('');
@@ -41,13 +42,14 @@ const BasicInfo = () => {
       console.log(fieldEl);
       customBasicFields.push(fieldVal);
     }
-    console.log(customBasicFields);
     try {
+      console.log(earlyEntryDeadline);
       const { data } = await addEvent({
         variables: {
           style,
           eventType,
           eventName,
+          earlyEntryDeadline,
           waiver,
           customBasicFields: customBasicFields,
           createdBy,
@@ -232,6 +234,31 @@ const BasicInfo = () => {
                       onChange={setLongDesc}
                       theme='snow'
                     ></ReactQuill>
+                  </Col>
+                </Row>
+              </Col>
+            </Form.Group>
+          </Row>
+
+          <Row>
+            <Form.Group className='my-3'>
+              <Col>
+                <Row>
+                  <Col sm={12} md={2} className='text-center'>
+                    <Form.Label className='form-label'>
+                      Early Entry Deadline{' '}
+                      <span className='text-danger'>*</span>
+                    </Form.Label>
+                  </Col>
+                  <Col sm={12} md={8}>
+                    <Form.Control
+                      type='date'
+                      label='Early Entry Deadline '
+                      id='earlyEntryDeadline'
+                      name='earlyEntryDeadline'
+                      value={earlyEntryDeadline}
+                      onChange={(e) => setEarlyEntryDeadline(e.target.value)}
+                    ></Form.Control>
                   </Col>
                 </Row>
               </Col>
