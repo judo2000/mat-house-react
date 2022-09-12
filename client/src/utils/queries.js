@@ -107,7 +107,6 @@ export const GET_EVENT = gql`
         _id
         clubName
       }
-      customFields
       shortDesc
       longDesc
       waiver
@@ -128,24 +127,19 @@ export const GET_EVENT = gql`
 `;
 
 export const GET_EVENT_BY_ID = gql`
-  query Event($id: String!) {
-    event(_id: $id) {
+  query EventById($_id: String!) {
+    eventById(_id: $_id) {
       _id
-      eventType
-      eventName
-      slug
+      earlyFirstEntry
+      lateFirstEntry
       eventCreator {
         _id
         clubName
       }
-      customFields
-      shortDesc
-      longDesc
-      waiver
       customBasicFields
       earlyFirstEntry
-      lateFirstEntry
       earlyAddEntry
+      lateFirstEntry
       lateAddEntry
       earlyEntryDeadline
       entryDeadline
