@@ -31,33 +31,43 @@ const eventSchema = new Schema({
   ],
   earlyFirstEntry: {
     type: Number,
+    default: 0,
   },
   lateFirstEntry: {
     type: Number,
+    default: 0,
   },
   earlyAddEntry: {
     type: Number,
+    default: 0,
   },
   lateAddEntry: {
     type: Number,
+    defualt: 0,
   },
   earlyEntryDeadline: {
     type: Date,
+    default: 0,
   },
   entryDeadline: {
     type: Date,
+    default: 0,
   },
   eventStartDate: {
     type: Date,
+    default: 0,
   },
   eventEndDate: {
     type: Date,
+    default: 0,
   },
   weighInStartTime: {
     type: String,
+    default: '',
   },
   weighInEndTime: {
     type: String,
+    default: '',
   },
   customLogisticsFields: [
     {

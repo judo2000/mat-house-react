@@ -19,6 +19,8 @@ const BasicInfo = () => {
   const [longDesc, setLongDesc] = useState('');
   const [waiver, setWaiver] = useState('');
   const customBasicFields = [];
+  // const [earlyFirstEntry, setEarlyFirstEntry] = useState('');
+  // const [lateFirstEntry, setEarlyLateEntry] = useState('');
 
   const [addEvent] = useMutation(CREATE_EVENT);
 
@@ -48,6 +50,8 @@ const BasicInfo = () => {
           eventName,
           waiver,
           customBasicFields: customBasicFields,
+          // earlyFirstEntry,
+          // lateFirstEntry,
           createdBy,
         },
       });

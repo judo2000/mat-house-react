@@ -90,6 +90,8 @@ export const GET_EVENTS = gql`
       shortDesc
       longDesc
       waiver
+      earlyFirstEntry
+      lateFirstEntry
     }
   }
 `;
@@ -112,15 +114,15 @@ export const GET_EVENT = gql`
       customBasicFields
       earlyFirstEntry
       lateFirstEntry
-      earlyAddEntry
-      lateAddEntry
-      earlyEntryDeadline
-      entryDeadline
-      eventStartDate
-      eventEndDate
-      weighInStartTime
-      weighInEndTime
-      customLogisticsFields
+      # earlyAddEntry
+      # lateAddEntry
+      # earlyEntryDeadline
+      # entryDeadline
+      # eventStartDate
+      # eventEndDate
+      # weighInStartTime
+      # weighInEndTime
+      # customLogisticsFields
     }
   }
 `;

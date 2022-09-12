@@ -168,6 +168,54 @@ const resolvers = {
     updateClub: async (
       parent,
       {
+        clubName,
+        address,
+        address2,
+        city,
+        state,
+        country,
+        postalCode,
+        phone,
+        club_email,
+        website,
+        homeInfo,
+        classSchedule,
+        about,
+        headInstructor,
+        slug,
+      }
+    ) => {
+      try {
+        const club = await Club.findOneAndUpdate(
+          { slug },
+          {
+            clubName,
+            address,
+            address2,
+            city,
+            state,
+            country,
+            postalCode,
+            phone,
+            club_email,
+            website,
+            homeInfo,
+            classSchedule,
+            about,
+            headInstructor,
+            logo,
+          }
+        );
+        const updatedClub = await Club.findOneAndUpdate({ slug });
+
+        return updatedClub;
+      } catch (error) {
+        return error;
+      }
+    },
+    updateEvent: async (
+      parent,
+      {
         style,
         eventType,
         eventName,
@@ -177,15 +225,15 @@ const resolvers = {
         customBasicFields,
         earlyFirstEntry,
         lateFirstEntry,
-        earlyAddEntry,
-        lateAddEntry,
-        earlyEntryDeadline,
-        entryDeadline,
-        eventStartDate,
-        eventEndDate,
-        weighInStartTime,
-        weighInEndTime,
-        customLogisticsFields,
+        // earlyAddEntry,
+        // lateAddEntry,
+        // earlyEntryDeadline,
+        // entryDeadline,
+        // eventStartDate,
+        // eventEndDate,
+        // weighInStartTime,
+        // weighInEndTime,
+        // customLogisticsFields,
       }
     ) => {
       try {
@@ -201,15 +249,15 @@ const resolvers = {
             customBasicFields,
             earlyFirstEntry,
             lateFirstEntry,
-            earlyAddEntry,
-            lateAddEntry,
-            earlyEntryDeadline,
-            entryDeadline,
-            eventStartDate,
-            eventEndDate,
-            weighInStartTime,
-            weighInEndTime,
-            customLogisticsFields,
+            // earlyAddEntry,
+            // lateAddEntry,
+            // earlyEntryDeadline,
+            // entryDeadline,
+            // eventStartDate,
+            // eventEndDate,
+            // weighInStartTime,
+            // weighInEndTime,
+            // customLogisticsFields,
           }
         );
         const updatedEvent = await Event.findOneAndUpdate({ _id });
