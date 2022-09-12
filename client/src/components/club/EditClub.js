@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_CLUB } from '../../utils/queries';
 import ReactQuill from 'react-quill';
@@ -66,7 +66,6 @@ const EditClub = () => {
     setHeadInstructor,
     setLogo,
     data,
-    console.log(logo),
   ]);
 
   // set up mutation

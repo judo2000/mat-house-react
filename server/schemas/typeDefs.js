@@ -46,6 +46,17 @@ const typeDefs = gql`
     eventCreator: [Club]
     waiver: String
     customBasicFields: [String]
+    earlyFirstEntry: Float
+    lateFirstEntry: Float
+    earlyAddEntry: Float
+    lateAddEntry: Float
+    earlyEntryDeadline: String
+    entryDeadline: String
+    eventStartDate: String
+    eventEndDate: String
+    weighInStartTime: String
+    weighInEndTime: String
+    customLogisticsFields: [String]
   }
 
   type Auth {
@@ -62,6 +73,7 @@ const typeDefs = gql`
     lastClub: [Club!]!
     events: [Event!]!
     event(slug: String!): Event
+    eventById(_id: String!): Event
   }
 
   type Mutation {
@@ -120,9 +132,7 @@ const typeDefs = gql`
       waiver: String
       createdBy: String!
       customBasicFields: [String]
-    ): # earlyFirstEntry: Float
-    # lateFirstEntry: Float
-    Event
+    ): Event
     updateEvent(
       style: String!
       eventType: String!

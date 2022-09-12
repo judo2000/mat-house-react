@@ -8,7 +8,6 @@ import {
   NavLink,
   useLocation,
   useParams,
-  useSearchParams,
 } from 'react-router-dom';
 import { GET_CLUB } from '../utils/queries';
 import Loader from '../components/Loader';

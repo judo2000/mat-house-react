@@ -50,8 +50,6 @@ const BasicInfo = () => {
           eventName,
           waiver,
           customBasicFields: customBasicFields,
-          // earlyFirstEntry,
-          // lateFirstEntry,
           createdBy,
         },
       });

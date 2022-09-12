@@ -114,15 +114,46 @@ export const GET_EVENT = gql`
       customBasicFields
       earlyFirstEntry
       lateFirstEntry
-      # earlyAddEntry
-      # lateAddEntry
-      # earlyEntryDeadline
-      # entryDeadline
-      # eventStartDate
-      # eventEndDate
-      # weighInStartTime
-      # weighInEndTime
-      # customLogisticsFields
+      earlyAddEntry
+      lateAddEntry
+      earlyEntryDeadline
+      entryDeadline
+      eventStartDate
+      eventEndDate
+      weighInStartTime
+      weighInEndTime
+      customLogisticsFields
+    }
+  }
+`;
+
+export const GET_EVENT_BY_ID = gql`
+  query Event($id: String!) {
+    event(_id: $id) {
+      _id
+      eventType
+      eventName
+      slug
+      eventCreator {
+        _id
+        clubName
+      }
+      customFields
+      shortDesc
+      longDesc
+      waiver
+      customBasicFields
+      earlyFirstEntry
+      lateFirstEntry
+      earlyAddEntry
+      lateAddEntry
+      earlyEntryDeadline
+      entryDeadline
+      eventStartDate
+      eventEndDate
+      weighInStartTime
+      weighInEndTime
+      customLogisticsFields
     }
   }
 `;

@@ -34,6 +34,10 @@ const resolvers = {
       let event = await Event.findOne({ slug: slug });
       return event;
     },
+    eventById: async (parent, { _id }) => {
+      let event = await Event.findById(_id);
+      return event;
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {
