@@ -262,7 +262,7 @@ const resolvers = {
             eventEndDate,
             weighInStartTime,
             weighInEndTime,
-            customLogisticsFields,
+            //customLogisticsFields,
           }
         );
         const updatedEvent = await Event.findOneAndUpdate({ _id });

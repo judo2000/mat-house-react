@@ -43,7 +43,7 @@ const BasicInfo = () => {
       customBasicFields.push(fieldVal);
     }
     try {
-      console.log(earlyEntryDeadline);
+      console.log(typeof earlyEntryDeadline);
       const { data } = await addEvent({
         variables: {
           style,
@@ -56,7 +56,7 @@ const BasicInfo = () => {
         },
       });
       console.log(data);
-      navigate(`/events/createEvent/logistics?eID=${data.addEvent._id}`);
+      //navigate(`/events/createEvent/logistics?eID=${data.addEvent._id}`);
     } catch (error) {
       console.log(error);
     }

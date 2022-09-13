@@ -56,7 +56,7 @@ const typeDefs = gql`
     eventEndDate: String
     weighInStartTime: String
     weighInEndTime: String
-    customLogisticsFields: [String]
+    //customLogisticsFields: [String]
   }
 
   type Auth {
@@ -142,8 +142,20 @@ const typeDefs = gql`
       shortDesc: String
       longDesc: String
       waiver: String
-      customBasicFields: [String] # lateAddEntry: Float
-      earlyEntryDeadline: String # earlyFirstEntry: Float # lateFirstEntry: Float # entryDeadline: String # earlyFirstEntry: Float # earlyAddEntry: Float # lateFirstEntry: Float # eventStartDate: String # eventEndDate: String # weighInStartTime: String # weighInEndTime: String
+      customBasicFields: [String]
+      lateAddEntry: Float
+      earlyEntryDeadline: String
+      entryDeadline: String
+      earlyFirstEntry: Float
+      lateFirstEntry: Float
+      entryDeadline: String
+      earlyFirstEntry: Float
+      earlyAddEntry: Float
+      lateFirstEntry: Float
+      eventStartDate: String
+      eventEndDate: String
+      weighInStartTime: String
+      weighInEndTime: String
     ): Event
   }
 `;

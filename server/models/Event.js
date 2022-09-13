@@ -47,6 +47,7 @@ const eventSchema = new Schema({
   },
   earlyEntryDeadline: {
     type: Date,
+    default: () => new ISODate(),
   },
   entryDeadline: {
     type: Date,

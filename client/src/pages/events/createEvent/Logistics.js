@@ -8,52 +8,72 @@ import { Loader } from '../../../components/Loader';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import FormContainer from '../../../components/FormContainer';
 import EventSteps from '../../../components/events/EventSteps';
+import moment from 'moment';
 
 const Logistics = () => {
   const search = useLocation().search;
   const id = new URLSearchParams(search).get('eID');
-  console.log(id);
-  const [earlyFirstEntry, setEarlyFirstEntry] = useState(0);
-  const [lateFirstEntry, setLateFirstEntry] = useState(0);
-  const [earlyAddEntry, setEarlyAddEntry] = useState(0);
-  const [lateAddEntry, setLateAddEntry] = useState(0);
+  const [style, setStyle] = useState('');
+  const [eventType, setEventType] = useState('');
+  const [eventName, setEventName] = useState('');
+  const [shortDesc, setShortDesc] = useState('');
+  const [longDesc, setLongDesc] = useState('');
+  const [waiver, setWaiver] = useState('');
+  // const [earlyFirstEntry, setEarlyFirstEntry] = useState(0);
+  // const [lateFirstEntry, setLateFirstEntry] = useState(0);
+  // const [earlyAddEntry, setEarlyAddEntry] = useState(0);
+  // const [lateAddEntry, setLateAddEntry] = useState(0);
   const [earlyEntryDeadline, setEarlyEntryDeadline] = useState('');
   const [entryDeadline, setEntryDeadline] = useState('');
-  const [eventStartDate, setEventStartDate] = useState('');
-  const [eventEndDate, setEventEndDate] = useState('');
-  const [weighInStartTime, setWeighInStartTime] = useState('');
-  const [weighInEndTime, setWeighInEndTime] = useState('');
-  const [cusLogisticsFields, setCustomLogisticsFields] = useState('');
+  // const [eventStartDate, setEventStartDate] = useState('');
+  // const [eventEndDate, setEventEndDate] = useState('');
+  // const [weighInStartTime, setWeighInStartTime] = useState('');
+  // const [weighInEndTime, setWeighInEndTime] = useState('');
+  //const [cusLogisticsFields, setCustomLogisticsFields] = useState('');
 
   const { data, loading } = useQuery(GET_EVENT_BY_ID, {
     variables: { _id: id },
   });
-  console.log('data ', data);
+
   useEffect(() => {
     const eventData = data?.eventById || {};
-    setEarlyFirstEntry(eventData.earlyFirstEntry);
-    setLateFirstEntry(eventData.lateFirstEntry);
-    setEarlyAddEntry(eventData.earlyAddEntry);
-    setLateAddEntry(eventData.lateAddEntry);
-    setEarlyEntryDeadline(eventData.earlyEntryDeadline);
-    setEntryDeadline(eventData.entryDeadline);
-    setEventStartDate(eventData.eventStartDate);
-    setEventEndDate(eventData.eventEndDate);
-    setWeighInStartTime(eventData.weighInStartTime);
-    setWeighInEndTime(eventData.weighInEndTime);
-    setCustomLogisticsFields(eventData.customLogisticsFields);
+    if (eventData) {
+      setStyle(eventData.style);
+      setEventType(eventData.eventType);
+      setEventName(eventData.eventName);
+      setShortDesc(eventData.shortDesc);
+      setLongDesc(eventData.longDesc);
+      setWaiver(eventData.waiver);
+      //setEarlyFirstEntry(eventData.earlyFirstEntry);
+      //setLateFirstEntry(eventData.lateFirstEntry);
+      // setEarlyAddEntry(eventData.earlyAddEntry);
+      // setLateAddEntry(eventData.lateAddEntry);
+      const convertedEarlyEntryDeadline = parseInt(
+        eventData.earlyEntryDeadline
+      );
+      setEarlyEntryDeadline(
+        moment(convertedEarlyEntryDeadline).format('MM/DD/YYYY')
+      );
+      const convertedEntryDeadline = parseInt(eventData.entryDeadline);
+      setEntryDeadline(moment(convertedEntryDeadline).format('MM/DD/YYYY'));
+      // setEventStartDate(eventData.eventStartDate);
+      // setEventEndDate(eventData.eventEndDate);
+      // setWeighInStartTime(eventData.weighInStartTime);
+      // setWeighInEndTime(eventData.weighInEndTime);
+      //setCustomLogisticsFields(eventData.customLogisticsFields);
+    }
   }, [
-    setEarlyFirstEntry,
-    setLateFirstEntry,
-    setEarlyAddEntry,
-    setLateAddEntry,
+    // setEarlyFirstEntry,
+    // setLateFirstEntry,
+    // setEarlyAddEntry,
+    // setLateAddEntry,
     setEarlyEntryDeadline,
     setEntryDeadline,
-    setEventStartDate,
-    setEventEndDate,
-    setWeighInStartTime,
-    setWeighInEndTime,
-    setCustomLogisticsFields,
+    // setEventStartDate,
+    // setEventEndDate,
+    // setWeighInStartTime,
+    // setWeighInEndTime,
+    //setCustomLogisticsFields,
     data,
   ]);
 
@@ -61,29 +81,41 @@ const Logistics = () => {
   const [updateEvent, { error }] = useMutation(UPDATE_EVENT);
   const navigate = useNavigate();
 
-  console.log(lateFirstEntry);
-  console.log('late add entry ', lateAddEntry);
-  console.log('early entry deadline ', earlyEntryDeadline);
-  console.log('entry deadline ', entryDeadline);
-  console.log('event start date ', eventStartDate);
-  console.log('event end date ', eventEndDate);
-  console.log(weighInStartTime);
-  console.log(weighInEndTime);
+  const buildDateforForm = (date) => {
+    let month = moment(date).month();
+    let day = moment(date).day();
+    let year = moment(date).year().toString();
+    if (month < 10) {
+      month = '0' + month;
+    }
+    if (day < 10) {
+      day = '0' + day;
+    }
+    return `${year}-${month}-${day}`;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       const { data } = await updateEvent({
         variables: {
-          earlyFirstEntry,
-          earlyAddEntry,
-          lateFirstEntry,
-          lateAddEntry,
+          style,
+          eventType,
+          eventName,
+          shortDesc,
+          longDesc,
+          waiver,
+          // earlyFirstEntry,
+          // earlyAddEntry,
+          // lateFirstEntry,
+          // lateAddEntry,
           earlyEntryDeadline,
           entryDeadline,
-          eventStartDate,
-          eventEndDate,
-          weighInStartTime,
-          weighInEndTime,
+          // eventStartDate,
+          // eventEndDate,
+          // weighInStartTime,
+          // weighInEndTime,
         },
       });
       console.log(data);
@@ -92,6 +124,7 @@ const Logistics = () => {
     }
   };
 
+  console.log(typeof earlyFirstEntry);
   return (
     <div className='mt-4'>
       <h1>Create Event</h1>
@@ -102,7 +135,7 @@ const Logistics = () => {
           <span className='text-danger'>*</span>
         </div>
         <Form onSubmit={handleSubmit} style={{ border: 'solid black 1px' }}>
-          <Row>
+          {/* <Row>
             <Form.Group className='my-3'>
               <Col>
                 <Row>
@@ -246,7 +279,7 @@ const Logistics = () => {
                 </Row>
               </Col>
             </Form.Group>
-          </Row>
+          </Row> */}
 
           <Row>
             <Form.Group className='my-3'>
@@ -258,13 +291,14 @@ const Logistics = () => {
                       <span className='text-danger'>*</span>
                     </Form.Label>
                   </Col>
+                  {}
                   <Col sm={12} md={8}>
                     <Form.Control
                       type='date'
                       label='Early Entry Deadline '
                       id='earlyEntryDeadline'
                       name='earlyEntryDeadline'
-                      value={earlyEntryDeadline}
+                      value={buildDateforForm(earlyEntryDeadline)}
                       onChange={(e) => setEarlyEntryDeadline(e.target.value)}
                     ></Form.Control>
                   </Col>
@@ -288,7 +322,7 @@ const Logistics = () => {
                       label='Entry Deadline '
                       id='entryDeadline'
                       name='entryDeadline'
-                      value={entryDeadline}
+                      value={buildDateforForm(entryDeadline)}
                       onChange={(e) => setEntryDeadline(e.target.value)}
                     ></Form.Control>
                   </Col>
@@ -297,7 +331,7 @@ const Logistics = () => {
             </Form.Group>
           </Row>
 
-          <Row>
+          {/* <Row>
             <Form.Group className='my-3'>
               <Col>
                 <Row>
@@ -343,7 +377,7 @@ const Logistics = () => {
                 </Row>
               </Col>
             </Form.Group>
-          </Row>
+          </Row> */}
 
           <Button variant='primary' type='submit'>
             Submit
