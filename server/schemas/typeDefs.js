@@ -42,6 +42,7 @@ const typeDefs = gql`
     eventCity: String
     eventState: String
     eventGenInfo: String
+    eventWeighInInfo: String
     eventStartDate: String
     eventEndDate: String
     eventStartTime: String
@@ -126,6 +127,7 @@ const typeDefs = gql`
       eventCity: String
       eventState: String
       eventGenInfo: String
+      eventWeighInInfo: String
       eventStartDate: String
       eventEndDate: String
       eventStartTime: String

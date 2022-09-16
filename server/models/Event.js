@@ -18,6 +18,7 @@ const eventSchema = new Schema({
   eventCity: String,
   eventState: String,
   eventGenInfo: String,
+  eventWeighInInfo: String,
   eventStartDate: {
     type: Date,
   },
