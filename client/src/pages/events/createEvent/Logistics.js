@@ -16,115 +16,73 @@ const Logistics = () => {
   const [style, setStyle] = useState('');
   const [eventType, setEventType] = useState('');
   const [eventName, setEventName] = useState('');
-  const [shortDesc, setShortDesc] = useState('');
-  const [longDesc, setLongDesc] = useState('');
-  const [waiver, setWaiver] = useState('');
-  // const [earlyFirstEntry, setEarlyFirstEntry] = useState(0);
-  // const [lateFirstEntry, setLateFirstEntry] = useState(0);
-  // const [earlyAddEntry, setEarlyAddEntry] = useState(0);
-  // const [lateAddEntry, setLateAddEntry] = useState(0);
   const [earlyEntryDeadline, setEarlyEntryDeadline] = useState('');
-  const [entryDeadline, setEntryDeadline] = useState('');
-  // const [eventStartDate, setEventStartDate] = useState('');
-  // const [eventEndDate, setEventEndDate] = useState('');
-  // const [weighInStartTime, setWeighInStartTime] = useState('');
-  // const [weighInEndTime, setWeighInEndTime] = useState('');
-  //const [cusLogisticsFields, setCustomLogisticsFields] = useState('');
-
+  const [slug, setSlug] = useState('');
   const { data, loading } = useQuery(GET_EVENT_BY_ID, {
     variables: { _id: id },
   });
-
+  // console.log(id);
+  // console.log(data);
   useEffect(() => {
     const eventData = data?.eventById || {};
     if (eventData) {
       setStyle(eventData.style);
       setEventType(eventData.eventType);
       setEventName(eventData.eventName);
-      setShortDesc(eventData.shortDesc);
-      setLongDesc(eventData.longDesc);
-      setWaiver(eventData.waiver);
-      //setEarlyFirstEntry(eventData.earlyFirstEntry);
-      //setLateFirstEntry(eventData.lateFirstEntry);
-      // setEarlyAddEntry(eventData.earlyAddEntry);
-      // setLateAddEntry(eventData.lateAddEntry);
-      const convertedEarlyEntryDeadline = parseInt(
-        eventData.earlyEntryDeadline
-      );
-      setEarlyEntryDeadline(
-        moment(convertedEarlyEntryDeadline).format('MM/DD/YYYY')
-      );
-      const convertedEntryDeadline = parseInt(eventData.entryDeadline);
-      setEntryDeadline(moment(convertedEntryDeadline).format('MM/DD/YYYY'));
-      // setEventStartDate(eventData.eventStartDate);
-      // setEventEndDate(eventData.eventEndDate);
-      // setWeighInStartTime(eventData.weighInStartTime);
-      // setWeighInEndTime(eventData.weighInEndTime);
-      //setCustomLogisticsFields(eventData.customLogisticsFields);
+      setSlug(eventData.slug);
+      setEarlyEntryDeadline(eventData.earlyEntryDeadline);
+      // const convertedEarlyEntryDeadline = parseInt(
+      //   eventData.earlyEntryDeadline
+      // );
+      // setEarlyEntryDeadline(
+      //   moment(convertedEarlyEntryDeadline).format('MM/DD/YYYY')
+      // );
     }
-  }, [
-    // setEarlyFirstEntry,
-    // setLateFirstEntry,
-    // setEarlyAddEntry,
-    // setLateAddEntry,
-    setEarlyEntryDeadline,
-    setEntryDeadline,
-    // setEventStartDate,
-    // setEventEndDate,
-    // setWeighInStartTime,
-    // setWeighInEndTime,
-    //setCustomLogisticsFields,
-    data,
-  ]);
+  }, [setStyle, setEventType, setEventName, setSlug, data]);
 
   // set up mutation
   const [updateEvent, { error }] = useMutation(UPDATE_EVENT);
   const navigate = useNavigate();
 
-  const buildDateforForm = (date) => {
-    let month = moment(date).month();
-    let day = moment(date).day();
-    let year = moment(date).year().toString();
-    if (month < 10) {
-      month = '0' + month;
-    }
-    if (day < 10) {
-      day = '0' + day;
-    }
-    return `${year}-${month}-${day}`;
-  };
+  // const buildDateforForm = (date) => {
+  //   let month = moment(date).month().toString();
+  //   let day = moment(date).day().toString();
+  //   let year = moment(date).year().toString();
+  //   if (month < 10) {
+  //     month = '0' + month;
+  //   }
+  //   if (day < 10) {
+  //     day = '0' + day;
+  //   }
+  //   return `${year}-${month}-${day}`;
+  // };
 
+  // const reverseDateForSave = (date) => {
+  //   let newDate = date.split('/');
+  //   let month = newDate[0];
+  //   let day = newDate[1];
+  //   let year = newDate[2];
+  //   let revDate = new Date(`${year}-${month}-${day}Z`);
+  //   return revDate;
+  // };
+  console.log(earlyEntryDeadline);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const { data } = await updateEvent({
         variables: {
           style,
           eventType,
           eventName,
-          shortDesc,
-          longDesc,
-          waiver,
-          // earlyFirstEntry,
-          // earlyAddEntry,
-          // lateFirstEntry,
-          // lateAddEntry,
           earlyEntryDeadline,
-          entryDeadline,
-          // eventStartDate,
-          // eventEndDate,
-          // weighInStartTime,
-          // weighInEndTime,
         },
       });
-      console.log(data);
+      console.log('DATA!!!!!!! ', data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(typeof earlyFirstEntry);
   return (
     <div className='mt-4'>
       <h1>Create Event</h1>
@@ -298,7 +256,7 @@ const Logistics = () => {
                       label='Early Entry Deadline '
                       id='earlyEntryDeadline'
                       name='earlyEntryDeadline'
-                      value={buildDateforForm(earlyEntryDeadline)}
+                      value={earlyEntryDeadline}
                       onChange={(e) => setEarlyEntryDeadline(e.target.value)}
                     ></Form.Control>
                   </Col>
@@ -307,7 +265,7 @@ const Logistics = () => {
             </Form.Group>
           </Row>
 
-          <Row>
+          {/* <Row>
             <Form.Group className='my-3'>
               <Col>
                 <Row>
@@ -329,7 +287,7 @@ const Logistics = () => {
                 </Row>
               </Col>
             </Form.Group>
-          </Row>
+          </Row> */}
 
           {/* <Row>
             <Form.Group className='my-3'>

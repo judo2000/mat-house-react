@@ -33,7 +33,6 @@ export const GET_CLUBS = gql`
       headInstructor
       slug
       clubMemberIds
-      logo
     }
   }
 `;
@@ -99,6 +98,7 @@ export const GET_EVENT = gql`
   query Event($slug: String!) {
     event(slug: $slug) {
       _id
+      style
       eventType
       eventName
       slug
@@ -129,24 +129,11 @@ export const GET_EVENT_BY_ID = gql`
   query EventById($_id: String!) {
     eventById(_id: $_id) {
       _id
-      earlyFirstEntry
-      lateFirstEntry
-      eventCreator {
-        _id
-        clubName
-      }
-      customBasicFields
-      earlyFirstEntry
-      earlyAddEntry
-      lateFirstEntry
-      lateAddEntry
+      style
+      eventType
+      eventName
       earlyEntryDeadline
-      entryDeadline
-      eventStartDate
-      eventEndDate
-      weighInStartTime
-      weighInEndTime
-      customLogisticsFields
+      slug
     }
   }
 `;

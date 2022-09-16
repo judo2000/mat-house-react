@@ -36,27 +36,19 @@ const typeDefs = gql`
 
   type Event {
     _id: ID
-    style: String
+    eventStyle: String
     eventType: String
     eventName: String
-    shortDesc: String
-    longDesc: String
-    slug: String
-    createdBy: [Club]
-    eventCreator: [Club]
-    waiver: String
-    customBasicFields: [String]
-    earlyFirstEntry: Float
-    lateFirstEntry: Float
-    earlyAddEntry: Float
-    lateAddEntry: Float
-    earlyEntryDeadline: String
-    entryDeadline: String
+    eventCity: String
+    eventState: String
+    eventGenInfo: String
     eventStartDate: String
     eventEndDate: String
-    weighInStartTime: String
-    weighInEndTime: String
-    //customLogisticsFields: [String]
+    eventStartTime: String
+    earlyEntryDeadline: String
+    entryDeadline: String
+    createdBy: String
+    slug: String
   }
 
   type Auth {
@@ -72,8 +64,6 @@ const typeDefs = gql`
     club(slug: String!): Club
     lastClub: [Club!]!
     events: [Event!]!
-    event(slug: String!): Event
-    eventById(_id: String!): Event
   }
 
   type Mutation {
@@ -124,38 +114,24 @@ const typeDefs = gql`
     ): Club
     deleteClub(slug: String!): Club
     addEvent(
-      style: String!
-      eventType: String!
       eventName: String!
-      shortDesc: String
-      longDesc: String
-      waiver: String
-      earlyEntryDeadline: String!
-      createdBy: String!
-      customBasicFields: [String]
+      eventStyle: String!
+      eventType: String!
+      createdBy: String
     ): Event
     updateEvent(
-      _id: String!
-      style: String!
-      eventType: String!
       eventName: String!
-      shortDesc: String
-      longDesc: String
-      waiver: String
-      customBasicFields: [String]
-      lateAddEntry: Float
-      earlyEntryDeadline: String
-      entryDeadline: String
-      earlyFirstEntry: Float
-      lateFirstEntry: Float
-      entryDeadline: String
-      earlyFirstEntry: Float
-      earlyAddEntry: Float
-      lateFirstEntry: Float
+      eventStyle: String!
+      eventType: String!
+      eventCity: String
+      eventState: String
+      eventGenInfo: String
       eventStartDate: String
       eventEndDate: String
-      weighInStartTime: String
-      weighInEndTime: String
+      eventStartTime: String
+      earlyEntryDeadline: String
+      entryDeadline: String
+      slug: String!
     ): Event
   }
 `;

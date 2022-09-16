@@ -26,7 +26,6 @@ const EditClub = () => {
   const [classSchedule, setClassSchedule] = useState('');
   const [about, setAbout] = useState('');
   const [headInstructor, setHeadInstructor] = useState('');
-  const [logo, setLogo] = useState('');
 
   const { data, loading } = useQuery(GET_CLUB, {
     variables: { slug: slug },
@@ -48,7 +47,6 @@ const EditClub = () => {
     setClassSchedule(clubData.classSchedule);
     setAbout(clubData.about);
     setHeadInstructor(clubData.headInstructor);
-    setLogo(clubData.logo);
   }, [
     setClubName,
     setAddress,
@@ -64,7 +62,6 @@ const EditClub = () => {
     setClassSchedule,
     setAbout,
     setHeadInstructor,
-    setLogo,
     data,
   ]);
 
@@ -92,7 +89,6 @@ const EditClub = () => {
           classSchedule,
           about,
           headInstructor,
-          logo,
         },
       });
 
@@ -257,14 +253,14 @@ const EditClub = () => {
           ></ReactQuill>
         </Form.Group>
 
-        <Form.Group>
+        {/* <Form.Group>
           <Form.Label>Upload logo</Form.Label>
           <Form.Control
             type='file'
             onChange={(e) => setLogo(e.target.value)}
             placeholder='Head Instructor(s)'
           />
-        </Form.Group>
+        </Form.Group> */}
         <Button variant='primary' type='submit'>
           Submit
         </Button>

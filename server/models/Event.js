@@ -2,9 +2,9 @@ const mongooseSlugPlugin = require('mongoose-slug-plugin');
 const { Schema, model } = require('mongoose');
 
 const eventSchema = new Schema({
-  style: {
+  eventStyle: {
     type: String,
-    require: true,
+    required: true,
   },
   eventType: {
     type: String,
@@ -15,74 +15,29 @@ const eventSchema = new Schema({
     required: true,
     unique: true,
   },
-  shortDesc: {
-    type: String,
-  },
-  longDesc: {
-    type: String,
-  },
-  waiver: {
-    type: String,
-  },
-  customBasicFields: [
-    {
-      type: String,
-    },
-  ],
-  earlyFirstEntry: {
-    type: Number,
-    default: 0,
-  },
-  lateFirstEntry: {
-    type: Number,
-    default: 0,
-  },
-  earlyAddEntry: {
-    type: Number,
-    default: 0,
-  },
-  lateAddEntry: {
-    type: Number,
-    default: 0,
-  },
-  earlyEntryDeadline: {
-    type: Date,
-    default: () => new ISODate(),
-  },
-  entryDeadline: {
-    type: Date,
-    default: 0,
-  },
+  eventCity: String,
+  eventState: String,
+  eventGenInfo: String,
   eventStartDate: {
     type: Date,
-    default: 0,
   },
   eventEndDate: {
     type: Date,
-    default: 0,
   },
-  weighInStartTime: {
-    type: String,
-    default: '',
+  earlyEntryDeadline: {
+    type: Date,
   },
-  weighInEndTime: {
-    type: String,
-    default: '',
+  eventStartTime: String,
+  entryDeadline: {
+    type: Date,
   },
-  customLogisticsFields: [
-    {
-      type: String,
-    },
-  ],
-  createdBy: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Club',
-    },
-  ],
+  createdBy: {
+    type: Schema.Types.ObjectId,
+    ref: 'Club',
+  },
   createdAt: {
     type: Date,
-    imutable: true,
+    immutable: true,
     default: () => Date.now(),
   },
   updatedAt: {

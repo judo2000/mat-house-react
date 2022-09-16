@@ -53,7 +53,6 @@ const clubSchema = new Schema({
   classSchedule: String,
   about: String,
   headInstructor: String,
-  logo: String,
   createdAt: {
     type: Date,
     immutable: true,

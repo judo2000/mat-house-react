@@ -110,7 +110,6 @@ export const UPDATE_CLUB = gql`
     $classSchedule: String
     $about: String
     $headInstructor: String!
-    $logo: String!
     $slug: String
   ) {
     updateClub(
@@ -128,7 +127,6 @@ export const UPDATE_CLUB = gql`
       classSchedule: $classSchedule
       about: $about
       headInstructor: $headInstructor
-      logo: $logo
       slug: $slug
     ) {
       _id
@@ -166,10 +164,6 @@ export const CREATE_EVENT = gql`
     $style: String!
     $eventType: String!
     $eventName: String!
-    $shortDesc: String
-    $longDesc: String
-    $waiver: String
-    $customBasicFields: [String]
     $earlyEntryDeadline: String!
     $createdBy: String!
   ) {
@@ -177,87 +171,44 @@ export const CREATE_EVENT = gql`
       style: $style
       eventType: $eventType
       eventName: $eventName
-      shortDesc: $shortDesc
-      longDesc: $longDesc
-      waiver: $waiver
       earlyEntryDeadline: $earlyEntryDeadline
-      customBasicFields: $customBasicFields
       createdBy: $createdBy
     ) {
       _id
       style
       eventType
       eventName
-      shortDesc
-      longDesc
       earlyEntryDeadline
-      waiver
-      customBasicFields
     }
   }
 `;
 
 // mutation for updating an event
 export const UPDATE_EVENT = gql`
-  mutation updateEvent(
-    # $style: String
-    # $eventType: String
-    # $eventName: String
-    # $shortDesc: String
-    # $longDesc: String
-    # $waiver: String
-    $earlyEntryDeadline: String!
-    $entryDeadline: String!
-  ) # $customBasicFields: [String]
-  # $earlyFirstEntry: Number
-  # $lateFirstEntry: Number
-  # $earlyAddEntry: Number!
-  # $lateAddEntry: Number!
-  # $eventStartDate: String!
-  # $eventEndDate: String
-  # $weighInStartTime: String
-  # $weighInEndTime: String
-  # $customLogisticsFields: [String]
-  {
+  mutation UpdateEvent(
+    $style: String
+    $eventType: String
+    $eventName: String
+    $earlyEntryDeadline: String
+    $slug: String
+  ) {
     updateEvent(
-      # style: $style
-      # eventType: $eventType
-      # eventName: $eventName
-      # shortDesc: $shortDesc
-      # longDesc: $longDesc
-      # waiver: $waiver
-      # customBasicFields: $customBasicFields
-      # createdBy: $createdBy
-      # earlyFirstEntry: $earlyFirstEntry
-      # lateFirstEntry: $lateFirstEntry
-      # earlyAddEntry: $earlyAddEntry
-      # lateAddEntry: $lateAddEntry
-      earlyEntryDeadlin: $earlyEntryDeadline
-      entryDeadline: $entryDeadline # eventStartDate: $eventStartDate # eventEndDate: $eventEndDate # weighInStartTime: $weighInStartTime # weighInEndTime: $weighInEndTime # customLogisticsFields: $customLogisticsFields
+      style: $style
+      eventType: $eventType
+      eventName: $eventName
+      earlyEntryDeadline: $earlyEntryDeadline
+      slug: $slug
     ) {
       _id
       style
       eventType
       eventName
-      shortDesc
-      longDesc
-      waiver
-      customBasicFields
-      createdBy {
+      slug
+      eventCreator {
         _id
         clubName
       }
-      # earlyFirstEntry
-      # lateFirstEntry
-      # earlyAddEntry
-      # lateAddEntry
-      earlyEntryDeadlin
-      entryDeadline
-      # eventStartDate
-      # eventEndDate
-      # weighInStartTime
-      # weighInEndTime
-      # customLogisticsFields
+      earlyEntryDeadline
     }
   }
 `;

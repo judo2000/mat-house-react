@@ -30,14 +30,6 @@ const resolvers = {
       let events = await Event.find({});
       return events;
     },
-    event: async (parent, { slug }) => {
-      let event = await Event.findOne({ slug: slug });
-      return event;
-    },
-    eventById: async (parent, { _id }) => {
-      let event = await Event.findById(_id);
-      return event;
-    },
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -145,7 +137,6 @@ const resolvers = {
             classSchedule,
             about,
             headInstructor,
-            logo,
           }
         );
         const updatedClub = await Club.findOneAndUpdate({ slug });
@@ -158,117 +149,54 @@ const resolvers = {
     deleteClub: async (parent, { slug }) => {
       await Club.findOneAndDelete({ slug: slug });
     },
-    addEvent: async (parent, args, context) => {
-      //if (context.user) {
-      console.log(args);
+
+    addEvent: async (parent, args) => {
       const event = await Event.create(args);
-      // const newEvent = await Club.findOneAndUpdate(
+      // const newEvent = await Event.findOneAndUpdate(
       //   { slug: Event.slug },
-      //   { $push: { clubAdmins: context.user._id } }
+      //   { $push: { createdBy: createdBy } }
       // );
       return event;
-      //}
-    },
-    updateClub: async (
-      parent,
-      {
-        clubName,
-        address,
-        address2,
-        city,
-        state,
-        country,
-        postalCode,
-        phone,
-        club_email,
-        website,
-        homeInfo,
-        classSchedule,
-        about,
-        headInstructor,
-        slug,
-      }
-    ) => {
-      try {
-        const club = await Club.findOneAndUpdate(
-          { slug },
-          {
-            clubName,
-            address,
-            address2,
-            city,
-            state,
-            country,
-            postalCode,
-            phone,
-            club_email,
-            website,
-            homeInfo,
-            classSchedule,
-            about,
-            headInstructor,
-          }
-        );
-        const updatedClub = await Club.findOneAndUpdate({ slug });
-
-        return updatedClub;
-      } catch (error) {
-        return error;
-      }
     },
     updateEvent: async (
       parent,
       {
-        _id,
-        style,
+        eventStyle,
         eventType,
         eventName,
-        shortDesc,
-        longDesc,
-        waiver,
-        customBasicFields,
-        earlyFirstEntry,
-        lateFirstEntry,
-        earlyAddEntry,
-        lateAddEntry,
-        earlyEntryDeadline,
-        entryDeadline,
+        eventCity,
+        eventState,
+        eventGenInfo,
         eventStartDate,
         eventEndDate,
-        weighInStartTime,
-        weighInEndTime,
-        customLogisticsFields,
+        eventStartTime,
+        earlyEntryDeadline,
+        entryDeadline,
+        slug,
       }
     ) => {
       try {
-        const event = Event.findOneAndUpdate(
-          { _id },
+        const event = await Event.findOneAndUpdate(
+          { slug },
           {
-            _id,
-            style,
+            eventStyle,
             eventType,
             eventName,
-            shortDesc,
-            longDesc,
-            waiver,
-            customBasicFields,
-            earlyFirstEntry,
-            lateFirstEntry,
-            earlyAddEntry,
-            lateAddEntry,
-            earlyEntryDeadline,
-            entryDeadline,
+            eventCity,
+            eventState,
+            eventGenInfo,
             eventStartDate,
             eventEndDate,
-            weighInStartTime,
-            weighInEndTime,
-            //customLogisticsFields,
+            eventStartTime,
+            earlyEntryDeadline,
+            entryDeadline,
           }
         );
-        const updatedEvent = await Event.findOneAndUpdate({ _id });
-
+        const updatedEvent = await Event.findOneAndUpdate({ slug });
         return updatedEvent;
-      } catch (error) {}
+      } catch (error) {
+        return error;
+      }
     },
   },
   User: {
@@ -284,11 +212,11 @@ const resolvers = {
       return await User.find({ _id: { $in: root.clubAdmins } });
     },
   },
-  Event: {
-    eventCreator: async (root) => {
-      return await Club.find({ _id: { $in: root.createdBy } });
-    },
-  },
+  // Event: {
+  //   eventCreator: async (root) => {
+  //     return await Club.find({ _id: { $in: root.createdBy } });
+  //   },
+  // },
 };
 
 module.exports = resolvers;

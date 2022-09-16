@@ -15,11 +15,11 @@ const BasicInfo = () => {
   const [style, setStyle] = useState('');
   const [eventType, setEventType] = useState('');
   const [eventName, setEventName] = useState('');
-  const [shortDesc, setShortDesc] = useState('');
-  const [longDesc, setLongDesc] = useState('');
+  // const [shortDesc, setShortDesc] = useState('');
+  // const [longDesc, setLongDesc] = useState('');
   const [earlyEntryDeadline, setEarlyEntryDeadline] = useState('');
-  const [waiver, setWaiver] = useState('');
-  const customBasicFields = [];
+  // const [waiver, setWaiver] = useState('');
+  // const customBasicFields = [];
   // const [earlyFirstEntry, setEarlyFirstEntry] = useState('');
   // const [lateFirstEntry, setEarlyLateEntry] = useState('');
 
@@ -37,10 +37,10 @@ const BasicInfo = () => {
 
     for (let i = 1; i < count + 1; i++) {
       console.log('i = ', i);
-      let fieldEl = document.getElementById(`customField${i}`);
-      let fieldVal = fieldEl.value;
-      console.log(fieldEl);
-      customBasicFields.push(fieldVal);
+      // let fieldEl = document.getElementById(`customField${i}`);
+      // let fieldVal = fieldEl.value;
+      // console.log(fieldEl);
+      // customBasicFields.push(fieldVal);
     }
     try {
       console.log(typeof earlyEntryDeadline);
@@ -50,13 +50,11 @@ const BasicInfo = () => {
           eventType,
           eventName,
           earlyEntryDeadline,
-          waiver,
-          customBasicFields: customBasicFields,
           createdBy,
         },
       });
       console.log(data);
-      //navigate(`/events/createEvent/logistics?eID=${data.addEvent._id}`);
+      navigate(`/events/createEvent/logistics?eID=${data.addEvent._id}`);
     } catch (error) {
       console.log(error);
     }
@@ -196,7 +194,7 @@ const BasicInfo = () => {
             </Form.Group>
           </Row>
 
-          <Row>
+          {/* <Row>
             <Form.Group className='mb-3'>
               <Col>
                 <Row>
@@ -238,7 +236,7 @@ const BasicInfo = () => {
                 </Row>
               </Col>
             </Form.Group>
-          </Row>
+          </Row> */}
 
           <Row>
             <Form.Group className='my-3'>
@@ -265,7 +263,7 @@ const BasicInfo = () => {
             </Form.Group>
           </Row>
 
-          <Row>
+          {/* <Row>
             <Form.Group className='mb-3'>
               <Col>
                 <Row>
@@ -283,7 +281,7 @@ const BasicInfo = () => {
                 </Row>
               </Col>
             </Form.Group>
-          </Row>
+          </Row> */}
 
           <Button type='btn' onClick={handleAddFields}>
             Add Custom Fields
