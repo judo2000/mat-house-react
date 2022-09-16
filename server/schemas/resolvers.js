@@ -173,6 +173,7 @@ const resolvers = {
         eventStartTime,
         earlyEntryDeadline,
         entryDeadline,
+        eventWaiver,
         slug,
       }
     ) => {
@@ -192,6 +193,7 @@ const resolvers = {
             eventStartTime,
             earlyEntryDeadline,
             entryDeadline,
+            eventWaiver,
           }
         );
         const updatedEvent = await Event.findOneAndUpdate({ slug });

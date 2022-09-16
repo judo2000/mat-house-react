@@ -32,6 +32,7 @@ const eventSchema = new Schema({
   entryDeadline: {
     type: Date,
   },
+  eventWaiver: String,
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'Club',

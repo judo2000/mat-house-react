@@ -48,6 +48,7 @@ const typeDefs = gql`
     eventStartTime: String
     earlyEntryDeadline: String
     entryDeadline: String
+    eventWaiver: String
     createdBy: String
     slug: String
   }
@@ -115,9 +116,9 @@ const typeDefs = gql`
     ): Club
     deleteClub(slug: String!): Club
     addEvent(
-      eventName: String!
       eventStyle: String!
       eventType: String!
+      eventName: String!
       createdBy: String
     ): Event
     updateEvent(
@@ -133,6 +134,7 @@ const typeDefs = gql`
       eventStartTime: String
       earlyEntryDeadline: String
       entryDeadline: String
+      eventWaiver: String
       slug: String!
     ): Event
   }

@@ -12,16 +12,10 @@ const BasicInfo = () => {
 
   let [count, setCount] = useState(0);
   const createdBy = new URLSearchParams(search).get('cID');
-  const [style, setStyle] = useState('');
+  const [eventStyle, setEventStyle] = useState('');
   const [eventType, setEventType] = useState('');
   const [eventName, setEventName] = useState('');
-  // const [shortDesc, setShortDesc] = useState('');
-  // const [longDesc, setLongDesc] = useState('');
-  const [earlyEntryDeadline, setEarlyEntryDeadline] = useState('');
-  // const [waiver, setWaiver] = useState('');
-  // const customBasicFields = [];
-  // const [earlyFirstEntry, setEarlyFirstEntry] = useState('');
-  // const [lateFirstEntry, setEarlyLateEntry] = useState('');
+  const [eventGenInfo, setEventGenInfo] = useState('');
 
   const [addEvent] = useMutation(CREATE_EVENT);
 
@@ -46,10 +40,10 @@ const BasicInfo = () => {
       console.log(typeof earlyEntryDeadline);
       const { data } = await addEvent({
         variables: {
-          style,
+          eventStyle,
           eventType,
           eventName,
-          earlyEntryDeadline,
+          eventGenInfo,
           createdBy,
         },
       });
@@ -120,7 +114,7 @@ const BasicInfo = () => {
                       id='BJJ'
                       name='style'
                       value='Brazilian Jui Jitsu'
-                      onChange={(e) => setStyle(e.target.value)}
+                      onChange={(e) => setEventStyle(e.target.value)}
                     ></Form.Check>
                     <Form.Check
                       type='radio'
@@ -128,7 +122,7 @@ const BasicInfo = () => {
                       id='Judo'
                       name='style'
                       value='Judo'
-                      onChange={(e) => setStyle(e.target.value)}
+                      onChange={(e) => setEventStyle(e.target.value)}
                     ></Form.Check>
                   </Col>
                 </Row>
@@ -194,7 +188,7 @@ const BasicInfo = () => {
             </Form.Group>
           </Row>
 
-          {/* <Row>
+          <Row>
             <Form.Group className='mb-3'>
               <Col>
                 <Row>
@@ -205,9 +199,9 @@ const BasicInfo = () => {
                   </Col>
                   <Col sm={12} md='8' className='text-start'>
                     <ReactQuill
-                      value={shortDesc ? shortDesc : ''}
+                      value={eventGenInfo ? eventGenInfo : ''}
                       // onChange={(e) => setContent(e.target.value)}
-                      onChange={setShortDesc}
+                      onChange={setEventGenInfo}
                       theme='snow'
                     ></ReactQuill>
                   </Col>
@@ -216,7 +210,7 @@ const BasicInfo = () => {
             </Form.Group>
           </Row>
 
-          <Row>
+          {/* <Row>
             <Form.Group className='mb-3'>
               <Col>
                 <Row>
