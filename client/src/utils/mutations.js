@@ -161,24 +161,31 @@ export const JOIN_CLUB = gql`
 
 export const CREATE_EVENT = gql`
   mutation AddEvent(
-    $style: String!
+    $eventStyle: String!
     $eventType: String!
     $eventName: String!
-    $earlyEntryDeadline: String!
+    $eventCity: String!
+    $eventState: String!
+    $eventGenInfo: String
     $createdBy: String!
   ) {
     addEvent(
-      style: $style
+      eventStyle: $eventStyle
       eventType: $eventType
       eventName: $eventName
-      earlyEntryDeadline: $earlyEntryDeadline
+      eventCity: $eventCity
+      eventState: $eventState
+      eventGenInfo: $eventGenInfo
       createdBy: $createdBy
     ) {
       _id
-      style
+      eventStyle
       eventType
       eventName
-      earlyEntryDeadline
+      eventCity
+      eventState
+      eventGenInfo
+      createdBy
     }
   }
 `;
@@ -193,7 +200,7 @@ export const UPDATE_EVENT = gql`
     $slug: String
   ) {
     updateEvent(
-      style: $style
+      eventStyle: $eventStyle
       eventType: $eventType
       eventName: $eventName
       earlyEntryDeadline: $earlyEntryDeadline

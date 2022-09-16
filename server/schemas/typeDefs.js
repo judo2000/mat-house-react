@@ -119,6 +119,9 @@ const typeDefs = gql`
       eventStyle: String!
       eventType: String!
       eventName: String!
+      eventCity: String!
+      eventState: String!
+      eventGenInfo: String
       createdBy: String
     ): Event
     updateEvent(

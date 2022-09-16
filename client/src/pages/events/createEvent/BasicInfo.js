@@ -15,6 +15,8 @@ const BasicInfo = () => {
   const [eventStyle, setEventStyle] = useState('');
   const [eventType, setEventType] = useState('');
   const [eventName, setEventName] = useState('');
+  const [eventCity, setEventCity] = useState('');
+  const [eventState, setEventState] = useState('');
   const [eventGenInfo, setEventGenInfo] = useState('');
 
   const [addEvent] = useMutation(CREATE_EVENT);
@@ -37,12 +39,13 @@ const BasicInfo = () => {
       // customBasicFields.push(fieldVal);
     }
     try {
-      console.log(typeof earlyEntryDeadline);
       const { data } = await addEvent({
         variables: {
           eventStyle,
           eventType,
           eventName,
+          eventCity,
+          eventState,
           eventGenInfo,
           createdBy,
         },
@@ -190,12 +193,60 @@ const BasicInfo = () => {
 
           <Row>
             <Form.Group className='mb-3'>
+              <Row>
+                <Col>
+                  <Row>
+                    <Col sm={12} md={2} className='text-center'>
+                      <Form.Label className='form-label'>
+                        Event Location <span className='text-danger'>*</span>
+                      </Form.Label>
+                    </Col>
+                    <Col sm={12} md={8} className='text-start'>
+                      <Row>
+                        <Col sm={12} md={2} className='text-center'>
+                          <Form.Label className='form-label'>
+                            City <span className='text-danger'>*</span>
+                          </Form.Label>
+                        </Col>
+                        <Col sm={12} md='4'>
+                          <Form.Control
+                            type='text'
+                            label='Event City'
+                            id='eventCity'
+                            name='eventCity'
+                            value={eventCity}
+                            onChange={(e) => setEventCity(e.target.value)}
+                          ></Form.Control>
+                        </Col>
+                        <Col sm={12} md={2} className='text-center'>
+                          <Form.Label className='form-label'>
+                            State <span className='text-danger'>*</span>
+                          </Form.Label>
+                        </Col>
+                        <Col sm={12} md={4}>
+                          <Form.Control
+                            type='text'
+                            label='State'
+                            id='eventState'
+                            name='eventState'
+                            value={eventState}
+                            onChange={(e) => setEventState(e.target.value)}
+                          ></Form.Control>
+                        </Col>
+                      </Row>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Form.Group>
+          </Row>
+
+          <Row>
+            <Form.Group className='mb-3'>
               <Col>
                 <Row>
                   <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>
-                      Short Description
-                    </Form.Label>
+                    <Form.Label className='form-label'>General Info</Form.Label>
                   </Col>
                   <Col sm={12} md='8' className='text-start'>
                     <ReactQuill
@@ -232,7 +283,7 @@ const BasicInfo = () => {
             </Form.Group>
           </Row> */}
 
-          <Row>
+          {/* <Row>
             <Form.Group className='my-3'>
               <Col>
                 <Row>
@@ -255,7 +306,7 @@ const BasicInfo = () => {
                 </Row>
               </Col>
             </Form.Group>
-          </Row>
+          </Row> */}
 
           {/* <Row>
             <Form.Group className='mb-3'>
