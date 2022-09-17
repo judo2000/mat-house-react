@@ -43,6 +43,10 @@ const eventSchema = new Schema({
   lateAddEntryFee: Number,
   eventStartTime: String,
   eventWaiver: String,
+  judoDivJNov: {
+    type: Boolean,
+    default: false,
+  },
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'Club',

@@ -211,6 +211,7 @@ export const UPDATE_EVENT = gql`
     $lateAddEntryFee: Float
     $eventStartTime: String
     $eventWaiver: String
+    $judoDivJNov: Boolean
   ) {
     updateEvent(
       _id: $id
@@ -231,6 +232,7 @@ export const UPDATE_EVENT = gql`
       lateAddEntryFee: $lateAddEntryFee
       eventStartTime: $eventStartTime
       eventWaiver: $eventWaiver
+      judoDivJNov: $judoDivJNov
     ) {
       _id
       eventStyle
@@ -250,6 +252,7 @@ export const UPDATE_EVENT = gql`
       lateAddEntryFee
       eventStartTime
       eventWaiver
+      judoDivJNov
     }
   }
 `;

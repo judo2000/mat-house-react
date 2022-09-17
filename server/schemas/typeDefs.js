@@ -53,6 +53,7 @@ const typeDefs = gql`
     lateAddEntryFee: Float
     entryDeadline: String
     eventWaiver: String
+    judoDivJNov: Boolean
     createdBy: String
     slug: String
   }
@@ -148,6 +149,7 @@ const typeDefs = gql`
       lateAddEntryFee: Float
       eventStartTime: String
       eventWaiver: String
+      judoDivJNov: Boolean
     ): Event
   }
 `;

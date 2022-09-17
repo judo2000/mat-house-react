@@ -121,6 +121,7 @@ const Logistics = () => {
         },
       });
       console.log('DATA!!!!!!! ', data);
+      navigate(`/events/createEvent/divisions?eID=${id}`);
     } catch (error) {
       console.log(error);
     }

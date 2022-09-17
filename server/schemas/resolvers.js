@@ -183,6 +183,7 @@ const resolvers = {
         lateAddEntryFee,
         eventStartTime,
         eventWaiver,
+        judoDivJNov,
       }
     ) => {
       try {
@@ -206,6 +207,7 @@ const resolvers = {
             lateAddEntryFee,
             eventStartTime,
             eventWaiver,
+            judoDivJNov,
           }
         );
         const updatedEvent = await Event.findByIdAndUpdate({ _id });
