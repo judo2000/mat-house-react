@@ -30,6 +30,10 @@ const resolvers = {
       let events = await Event.find({});
       return events;
     },
+    eventById: async (parent, _id) => {
+      let event = await Event.findOne({ _id });
+      return event;
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -161,25 +165,20 @@ const resolvers = {
     updateEvent: async (
       parent,
       {
+        _id,
         eventStyle,
         eventType,
         eventName,
         eventCity,
         eventState,
         eventGenInfo,
-        eventWeighInInfo,
         eventStartDate,
         eventEndDate,
-        eventStartTime,
-        earlyEntryDeadline,
-        entryDeadline,
-        eventWaiver,
-        slug,
       }
     ) => {
       try {
-        const event = await Event.findOneAndUpdate(
-          { slug },
+        const event = await Event.findByIdAndUpdate(
+          { _id },
           {
             eventStyle,
             eventType,
@@ -187,16 +186,11 @@ const resolvers = {
             eventCity,
             eventState,
             eventGenInfo,
-            eventWeighInInfo,
             eventStartDate,
             eventEndDate,
-            eventStartTime,
-            earlyEntryDeadline,
-            entryDeadline,
-            eventWaiver,
           }
         );
-        const updatedEvent = await Event.findOneAndUpdate({ slug });
+        const updatedEvent = await Event.findByIdAndUpdate({ _id });
         return updatedEvent;
       } catch (error) {
         return error;

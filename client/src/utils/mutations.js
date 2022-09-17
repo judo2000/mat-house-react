@@ -193,29 +193,36 @@ export const CREATE_EVENT = gql`
 // mutation for updating an event
 export const UPDATE_EVENT = gql`
   mutation UpdateEvent(
-    $style: String
-    $eventType: String
-    $eventName: String
-    $earlyEntryDeadline: String
-    $slug: String
+    $id: String!
+    $eventStyle: String!
+    $eventType: String!
+    $eventName: String!
+    $eventCity: String!
+    $eventState: String!
+    $eventEndDate: String
+    $eventStartDate: String
+    $eventGenInfo: String
   ) {
     updateEvent(
+      _id: $id
       eventStyle: $eventStyle
       eventType: $eventType
       eventName: $eventName
-      earlyEntryDeadline: $earlyEntryDeadline
-      slug: $slug
+      eventCity: $eventCity
+      eventState: $eventState
+      eventEndDate: $eventEndDate
+      eventStartDate: $eventStartDate
+      eventGenInfo: $eventGenInfo
     ) {
       _id
-      style
+      eventStyle
       eventType
       eventName
-      slug
-      eventCreator {
-        _id
-        clubName
-      }
-      earlyEntryDeadline
+      eventCity
+      eventState
+      eventGenInfo
+      eventStartDate
+      eventEndDate
     }
   }
 `;

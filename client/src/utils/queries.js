@@ -105,10 +105,10 @@ export const GET_EVENT = gql`
 `;
 
 export const GET_EVENT_BY_ID = gql`
-  query EventById($_id: String!) {
-    eventById(_id: $_id) {
+  query EventById($id: String!) {
+    eventById(_id: $id) {
       _id
-      style
+      eventStyle
       eventType
       eventName
       eventCity

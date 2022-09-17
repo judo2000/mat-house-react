@@ -66,6 +66,7 @@ const typeDefs = gql`
     club(slug: String!): Club
     lastClub: [Club!]!
     events: [Event!]!
+    eventById(_id: String!): Event
   }
 
   type Mutation {
@@ -125,20 +126,15 @@ const typeDefs = gql`
       createdBy: String
     ): Event
     updateEvent(
-      eventName: String!
+      _id: String
       eventStyle: String!
       eventType: String!
-      eventCity: String
-      eventState: String
+      eventName: String!
+      eventCity: String!
+      eventState: String!
       eventGenInfo: String
-      eventWeighInInfo: String
       eventStartDate: String
       eventEndDate: String
-      eventStartTime: String
-      earlyEntryDeadline: String
-      entryDeadline: String
-      eventWaiver: String
-      slug: String!
     ): Event
   }
 `;

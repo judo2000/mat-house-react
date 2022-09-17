@@ -13,24 +13,34 @@ import moment from 'moment';
 const Logistics = () => {
   const search = useLocation().search;
   const id = new URLSearchParams(search).get('eID');
-  const [style, setStyle] = useState('');
+
+  const [eventStyle, setEventStyle] = useState('');
   const [eventType, setEventType] = useState('');
   const [eventName, setEventName] = useState('');
-  const [earlyEntryDeadline, setEarlyEntryDeadline] = useState('');
-  const [slug, setSlug] = useState('');
+  const [eventCity, setEventCity] = useState('');
+  const [eventState, setEventState] = useState('');
+  const [eventGenInfo, setEventGenInfo] = useState('');
+  const [eventStartDate, setEventStartDate] = useState('');
+  const [eventEndDate, setEventEndDate] = useState('');
+  //const [earlyEntryDeadline, setEarlyEntryDeadline] = useState('');
+
   const { data, loading } = useQuery(GET_EVENT_BY_ID, {
-    variables: { _id: id },
+    variables: { id: id },
   });
-  // console.log(id);
-  // console.log(data);
+  console.log(id);
+  console.log('DATA ', data);
   useEffect(() => {
     const eventData = data?.eventById || {};
+
     if (eventData) {
-      setStyle(eventData.style);
+      setEventStyle(eventData.eventStyle);
       setEventType(eventData.eventType);
       setEventName(eventData.eventName);
-      setSlug(eventData.slug);
-      setEarlyEntryDeadline(eventData.earlyEntryDeadline);
+      setEventCity(eventData.eventCity);
+      setEventState(eventData.eventState);
+      setEventGenInfo(eventData.eventGenInfo);
+      //setEventStartDate(eventData.eventGenInfo);
+      //setEarlyEntryDeadline(eventData.earlyEntryDeadline);
       // const convertedEarlyEntryDeadline = parseInt(
       //   eventData.earlyEntryDeadline
       // );
@@ -38,7 +48,15 @@ const Logistics = () => {
       //   moment(convertedEarlyEntryDeadline).format('MM/DD/YYYY')
       // );
     }
-  }, [setStyle, setEventType, setEventName, setSlug, data]);
+  }, [
+    setEventStyle,
+    setEventType,
+    setEventName,
+    setEventCity,
+    setEventState,
+    setEventGenInfo,
+    data,
+  ]);
 
   // set up mutation
   const [updateEvent, { error }] = useMutation(UPDATE_EVENT);
@@ -65,16 +83,29 @@ const Logistics = () => {
   //   let revDate = new Date(`${year}-${month}-${day}Z`);
   //   return revDate;
   // };
-  console.log(earlyEntryDeadline);
+  // console.log(earlyEntryDeadline);
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(eventStyle);
+    console.log(eventType);
+    console.log(eventName);
+    console.log(eventCity);
+    console.log(eventState);
+    console.log(eventGenInfo);
+    console.log(eventStartDate);
+    console.log(eventEndDate);
     try {
       const { data } = await updateEvent({
         variables: {
-          style,
+          id,
+          eventStyle,
           eventType,
           eventName,
-          earlyEntryDeadline,
+          eventCity,
+          eventState,
+          eventGenInfo,
+          eventStartDate,
+          eventEndDate,
         },
       });
       console.log('DATA!!!!!!! ', data);
@@ -93,7 +124,7 @@ const Logistics = () => {
           <span className='text-danger'>*</span>
         </div>
         <Form onSubmit={handleSubmit} style={{ border: 'solid black 1px' }}>
-          {/* <Row>
+          <Row>
             <Form.Group className='my-3'>
               <Col>
                 <Row>
@@ -141,6 +172,7 @@ const Logistics = () => {
             </Form.Group>
           </Row>
 
+          {/*
           <Row>
             <Form.Group className='my-3'>
               <Col>
@@ -237,7 +269,7 @@ const Logistics = () => {
                 </Row>
               </Col>
             </Form.Group>
-          </Row> */}
+          </Row> 
 
           <Row>
             <Form.Group className='my-3'>
@@ -263,7 +295,7 @@ const Logistics = () => {
                 </Row>
               </Col>
             </Form.Group>
-          </Row>
+          </Row>*/}
 
           {/* <Row>
             <Form.Group className='my-3'>
