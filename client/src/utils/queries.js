@@ -114,6 +114,17 @@ export const GET_EVENT_BY_ID = gql`
       eventCity
       eventState
       eventGenInfo
+      eventStartDate
+      eventEndDate
+      eventWeighInInfo
+      earlyEntryDeadline
+      entryDeadline
+      earlyFirstEntryFee
+      earlyAddEntryFee
+      lateFirstEntryFee
+      lateAddEntryFee
+      eventStartTime
+      eventWaiver
       slug
     }
   }

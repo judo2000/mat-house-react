@@ -47,6 +47,10 @@ const typeDefs = gql`
     eventEndDate: String
     eventStartTime: String
     earlyEntryDeadline: String
+    earlyFirstEntryFee: Float
+    earlyAddEntryFee: Float
+    lateFirstEntryFee: Float
+    lateAddEntryFee: Float
     entryDeadline: String
     eventWaiver: String
     createdBy: String
@@ -135,6 +139,15 @@ const typeDefs = gql`
       eventGenInfo: String
       eventStartDate: String
       eventEndDate: String
+      eventWeighInInfo: String
+      earlyEntryDeadline: String
+      entryDeadline: String
+      earlyFirstEntryFee: Float
+      earlyAddEntryFee: Float
+      lateFirstEntryFee: Float
+      lateAddEntryFee: Float
+      eventStartTime: String
+      eventWaiver: String
     ): Event
   }
 `;

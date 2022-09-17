@@ -199,9 +199,18 @@ export const UPDATE_EVENT = gql`
     $eventName: String!
     $eventCity: String!
     $eventState: String!
-    $eventEndDate: String
-    $eventStartDate: String
     $eventGenInfo: String
+    $eventStartDate: String
+    $eventEndDate: String
+    $eventWeighInInfo: String
+    $earlyEntryDeadline: String
+    $entryDeadline: String
+    $earlyFirstEntryFee: Float
+    $earlyAddEntryFee: Float
+    $lateFirstEntryFee: Float
+    $lateAddEntryFee: Float
+    $eventStartTime: String
+    $eventWaiver: String
   ) {
     updateEvent(
       _id: $id
@@ -213,6 +222,15 @@ export const UPDATE_EVENT = gql`
       eventEndDate: $eventEndDate
       eventStartDate: $eventStartDate
       eventGenInfo: $eventGenInfo
+      eventWeighInInfo: $eventWeighInInfo
+      earlyEntryDeadline: $earlyEntryDeadline
+      entryDeadline: $entryDeadline
+      earlyFirstEntryFee: $earlyFirstEntryFee
+      earlyAddEntryFee: $earlyAddEntryFee
+      lateFirstEntryFee: $lateFirstEntryFee
+      lateAddEntryFee: $lateAddEntryFee
+      eventStartTime: $eventStartTime
+      eventWaiver: $eventWaiver
     ) {
       _id
       eventStyle
@@ -223,6 +241,15 @@ export const UPDATE_EVENT = gql`
       eventGenInfo
       eventStartDate
       eventEndDate
+      eventWeighInInfo
+      earlyEntryDeadline
+      entryDeadline
+      earlyFirstEntryFee
+      earlyAddEntryFee
+      lateFirstEntryFee
+      lateAddEntryFee
+      eventStartTime
+      eventWaiver
     }
   }
 `;

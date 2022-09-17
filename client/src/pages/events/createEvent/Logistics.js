@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_EVENT_BY_ID } from '../../../utils/queries';
-import { ReactQuill } from 'react-quill';
 import { UPDATE_EVENT } from '../../../utils/mutations';
 import { Loader } from '../../../components/Loader';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import FormContainer from '../../../components/FormContainer';
 import EventSteps from '../../../components/events/EventSteps';
-import moment from 'moment';
+import ReactQuill from 'react-quill';
 
 const Logistics = () => {
   const search = useLocation().search;
@@ -22,7 +21,15 @@ const Logistics = () => {
   const [eventGenInfo, setEventGenInfo] = useState('');
   const [eventStartDate, setEventStartDate] = useState('');
   const [eventEndDate, setEventEndDate] = useState('');
-  //const [earlyEntryDeadline, setEarlyEntryDeadline] = useState('');
+  const [eventWeighInInfo, setEventWeighInInfo] = useState('');
+  const [earlyEntryDeadline, setEarlyEntryDeadline] = useState('');
+  const [entryDeadline, setEntryDeadline] = useState('');
+  const [eventStartTime, setEventStartTime] = useState('');
+  const [eventWaiver, setEventWaiver] = useState('');
+  const [earlyFirstEntryFee, setEarlyFirstEntryFee] = useState('');
+  const [earlyAddEntryFee, setEarlyAddEntryFee] = useState('');
+  const [lateFirstEntryFee, setLateFirstEntryFee] = useState('');
+  const [lateAddEntryFee, setLateAddEntryFee] = useState('');
 
   const { data, loading } = useQuery(GET_EVENT_BY_ID, {
     variables: { id: id },
@@ -86,14 +93,10 @@ const Logistics = () => {
   // console.log(earlyEntryDeadline);
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(eventStyle);
-    console.log(eventType);
-    console.log(eventName);
-    console.log(eventCity);
-    console.log(eventState);
-    console.log(eventGenInfo);
-    console.log(eventStartDate);
-    console.log(eventEndDate);
+    console.log(typeof earlyFirstEntryFee);
+    console.log(typeof earlyAddEntryFee);
+    console.log(typeof lateFirstEntryFee);
+    console.log(typeof lateAddEntryFee);
     try {
       const { data } = await updateEvent({
         variables: {
@@ -106,6 +109,15 @@ const Logistics = () => {
           eventGenInfo,
           eventStartDate,
           eventEndDate,
+          eventWeighInInfo,
+          earlyEntryDeadline,
+          entryDeadline,
+          earlyFirstEntryFee,
+          earlyAddEntryFee,
+          lateFirstEntryFee,
+          lateAddEntryFee,
+          eventStartTime,
+          eventWaiver,
         },
       });
       console.log('DATA!!!!!!! ', data);
@@ -172,105 +184,230 @@ const Logistics = () => {
             </Form.Group>
           </Row>
 
+          <Row>
+            <Form.Group className='mb-3'>
+              <Col>
+                <Row>
+                  <Col sm={12} md={2} className='text-center'>
+                    <Form.Label className='form-label'>
+                      Weigh In Info
+                    </Form.Label>
+                  </Col>
+                  <Col sm={12} md='8' className='text-start'>
+                    <ReactQuill
+                      value={eventWeighInInfo ? eventWeighInInfo : ''}
+                      // onChange={(e) => setContent(e.target.value)}
+                      onChange={setEventWeighInInfo}
+                      theme='snow'
+                    ></ReactQuill>
+                  </Col>
+                </Row>
+              </Col>
+            </Form.Group>
+          </Row>
+
+          <Row>
+            <Form.Group className='my-3'>
+              <Col>
+                <Row>
+                  <Col sm={12} md={2} className='text-center'>
+                    <Form.Label className='form-label'>
+                      Early Entry Deadline{' '}
+                      <span className='text-danger'>*</span>
+                    </Form.Label>
+                  </Col>
+                  <Col sm={12} md={8}>
+                    <Form.Control
+                      type='date'
+                      label='Early Entry Deadline'
+                      id='earlyEntryDeadline'
+                      name='earlyEntryDeadline'
+                      value={earlyEntryDeadline}
+                      onChange={(e) => setEarlyEntryDeadline(e.target.value)}
+                    ></Form.Control>
+                  </Col>
+                </Row>
+              </Col>
+            </Form.Group>
+          </Row>
+
+          <Row>
+            <Form.Group className='my-3'>
+              <Col>
+                <Row>
+                  <Col sm={12} md={2} className='text-center'>
+                    <Form.Label className='form-label'>
+                      Entry Deadline <span className='text-danger'>*</span>
+                    </Form.Label>
+                  </Col>
+                  <Col sm={12} md={8}>
+                    <Form.Control
+                      type='date'
+                      label='Entry Deadline'
+                      id='entryDeadline'
+                      name='entryDeadline'
+                      value={entryDeadline}
+                      onChange={(e) => setEntryDeadline(e.target.value)}
+                    ></Form.Control>
+                  </Col>
+                </Row>
+              </Col>
+            </Form.Group>
+          </Row>
+
+          <Row>
+            <Form.Group className='my-3'>
+              <Col>
+                <Row>
+                  <Col sm={12} md={2} className='text-center'>
+                    <Form.Label className='form-label'>
+                      Early First Entry Fee{' '}
+                      <span className='text-danger'>*</span>
+                    </Form.Label>
+                  </Col>
+                  <Col sm={12} md={8}>
+                    <Form.Control
+                      type='number'
+                      label='Early First Entry Fee'
+                      id='earlyFirstEntryFee'
+                      name='earlyFirstEntryFee'
+                      value={earlyFirstEntryFee}
+                      onChange={(e) =>
+                        setEarlyFirstEntryFee(e.target.valueAsNumber)
+                      }
+                    ></Form.Control>
+                  </Col>
+                </Row>
+              </Col>
+            </Form.Group>
+          </Row>
+
+          <Row>
+            <Form.Group className='my-3'>
+              <Col>
+                <Row>
+                  <Col sm={12} md={2} className='text-center'>
+                    <Form.Label className='form-label'>
+                      Early Additional Entry Fees{' '}
+                      <span className='text-danger'>*</span>
+                    </Form.Label>
+                  </Col>
+                  <Col sm={12} md={8}>
+                    <Form.Control
+                      type='number'
+                      label='Early Additional Entry Fees'
+                      id='earlyAddEntryFee'
+                      name='earlyAddEntryFee'
+                      value={earlyAddEntryFee}
+                      onChange={(e) =>
+                        setEarlyAddEntryFee(e.target.valueAsNumber)
+                      }
+                    ></Form.Control>
+                  </Col>
+                </Row>
+              </Col>
+            </Form.Group>
+          </Row>
+
+          <Row>
+            <Form.Group className='my-3'>
+              <Col>
+                <Row>
+                  <Col sm={12} md={2} className='text-center'>
+                    <Form.Label className='form-label'>
+                      Late First Entry Fee{' '}
+                      <span className='text-danger'>*</span>
+                    </Form.Label>
+                  </Col>
+                  <Col sm={12} md={8}>
+                    <Form.Control
+                      type='number'
+                      label='Late First Entry Fee'
+                      id='lateFirstEntryFee'
+                      name='lateFirstEntryFee'
+                      value={lateFirstEntryFee}
+                      onChange={(e) =>
+                        setLateFirstEntryFee(e.target.valueAsNumber)
+                      }
+                    ></Form.Control>
+                  </Col>
+                </Row>
+              </Col>
+            </Form.Group>
+          </Row>
+
+          <Row>
+            <Form.Group className='my-3'>
+              <Col>
+                <Row>
+                  <Col sm={12} md={2} className='text-center'>
+                    <Form.Label className='form-label'>
+                      Late Additional Entry Fee{' '}
+                      <span className='text-danger'>*</span>
+                    </Form.Label>
+                  </Col>
+                  <Col sm={12} md={8}>
+                    <Form.Control
+                      type='number'
+                      label='Late Additional Entry Fee'
+                      id='lateAddEntryFee'
+                      name='lateAddEntryFee'
+                      value={lateAddEntryFee}
+                      onChange={(e) =>
+                        setLateAddEntryFee(e.target.valueAsNumber)
+                      }
+                    ></Form.Control>
+                  </Col>
+                </Row>
+              </Col>
+            </Form.Group>
+          </Row>
+
+          <Row>
+            <Form.Group className='my-3'>
+              <Col>
+                <Row>
+                  <Col sm={12} md={2} className='text-center'>
+                    <Form.Label className='form-label'>
+                      Entry Deadline <span className='text-danger'>*</span>
+                    </Form.Label>
+                  </Col>
+                  <Col sm={12} md={8}>
+                    <Form.Control
+                      type='time'
+                      label='Event Start Time'
+                      id='eventStartTime'
+                      name='eventStartTime'
+                      value={eventStartTime}
+                      onChange={(e) => setEventStartTime(e.target.value)}
+                    ></Form.Control>
+                  </Col>
+                </Row>
+              </Col>
+            </Form.Group>
+          </Row>
+
+          <Row>
+            <Form.Group className='mb-3'>
+              <Col>
+                <Row>
+                  <Col sm={12} md={2} className='text-center'>
+                    <Form.Label className='form-label'>Event Waiver</Form.Label>
+                  </Col>
+                  <Col sm={12} md='8' className='text-start'>
+                    <ReactQuill
+                      value={eventWaiver ? eventWaiver : ''}
+                      // onChange={(e) => setContent(e.target.value)}
+                      onChange={setEventWaiver}
+                      theme='snow'
+                    ></ReactQuill>
+                  </Col>
+                </Row>
+              </Col>
+            </Form.Group>
+          </Row>
+
           {/*
-          <Row>
-            <Form.Group className='my-3'>
-              <Col>
-                <Row>
-                  <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>
-                      Early First Entry <span className='text-danger'>*</span>
-                    </Form.Label>
-                  </Col>
-                  <Col sm={12} md={8}>
-                    <Form.Control
-                      type='number'
-                      label='Early First Entry'
-                      id='earlyFirstEntry'
-                      name='earlyFirstEntry'
-                      value={earlyFirstEntry}
-                      onChange={(e) => setEarlyFirstEntry(e.target.value)}
-                    ></Form.Control>
-                  </Col>
-                </Row>
-              </Col>
-            </Form.Group>
-          </Row>
-
-          <Row>
-            <Form.Group className='my-3'>
-              <Col>
-                <Row>
-                  <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>
-                      Early Additional Entries{' '}
-                      <span className='text-danger'>*</span>
-                    </Form.Label>
-                  </Col>
-                  <Col sm={12} md={8}>
-                    <Form.Control
-                      type='number'
-                      label='Early Additional Entry'
-                      id='earlyAddEntry'
-                      name='earlyAddEntry'
-                      value={earlyAddEntry}
-                      onChange={(e) => setEarlyAddEntry(e.target.value)}
-                    ></Form.Control>
-                  </Col>
-                </Row>
-              </Col>
-            </Form.Group>
-          </Row>
-
-          <Row>
-            <Form.Group className='my-3'>
-              <Col>
-                <Row>
-                  <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>
-                      Late First Entry <span className='text-danger'>*</span>
-                    </Form.Label>
-                  </Col>
-                  <Col sm={12} md={8}>
-                    <Form.Control
-                      type='number'
-                      label='Late First Entry'
-                      id='lateFirstEntry'
-                      name='lateFirstEntry'
-                      value={lateFirstEntry}
-                      onChange={(e) => setLateFirstEntry(e.target.value)}
-                    ></Form.Control>
-                  </Col>
-                </Row>
-              </Col>
-            </Form.Group>
-          </Row>
-
-          <Row>
-            <Form.Group className='my-3'>
-              <Col>
-                <Row>
-                  <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>
-                      Late Additional Entries{' '}
-                      <span className='text-danger'>*</span>
-                    </Form.Label>
-                  </Col>
-                  <Col sm={12} md={8}>
-                    <Form.Control
-                      type='number'
-                      label='Late Additional Entry'
-                      id='lateAddEntry'
-                      name='lateAddEntry'
-                      value={lateAddEntry}
-                      onChange={(e) => setLateAddEntry(e.target.value)}
-                    ></Form.Control>
-                  </Col>
-                </Row>
-              </Col>
-            </Form.Group>
-          </Row> 
-
           <Row>
             <Form.Group className='my-3'>
               <Col>
@@ -314,54 +451,6 @@ const Logistics = () => {
                       name='entryDeadline'
                       value={buildDateforForm(entryDeadline)}
                       onChange={(e) => setEntryDeadline(e.target.value)}
-                    ></Form.Control>
-                  </Col>
-                </Row>
-              </Col>
-            </Form.Group>
-          </Row> */}
-
-          {/* <Row>
-            <Form.Group className='my-3'>
-              <Col>
-                <Row>
-                  <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>
-                      Weigh In Start Time <span className='text-danger'>*</span>
-                    </Form.Label>
-                  </Col>
-                  <Col sm={12} md={8}>
-                    <Form.Control
-                      type='time'
-                      label='Weigh In Start Time'
-                      id='weighInStartTime'
-                      name='weighInStartTime'
-                      value={weighInStartTime}
-                      onChange={(e) => setWeighInStartTime(e.target.value)}
-                    ></Form.Control>
-                  </Col>
-                </Row>
-              </Col>
-            </Form.Group>
-          </Row>
-
-          <Row>
-            <Form.Group className='my-3'>
-              <Col>
-                <Row>
-                  <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>
-                      Weigh In End Time <span className='text-danger'>*</span>
-                    </Form.Label>
-                  </Col>
-                  <Col sm={12} md={8}>
-                    <Form.Control
-                      type='time'
-                      label='Weigh In End Time'
-                      id='weighInEndTime'
-                      name='weighInEndTime'
-                      value={weighInEndTime}
-                      onChange={(e) => setWeighInEndTime(e.target.value)}
                     ></Form.Control>
                   </Col>
                 </Row>

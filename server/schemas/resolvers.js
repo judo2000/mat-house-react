@@ -174,6 +174,15 @@ const resolvers = {
         eventGenInfo,
         eventStartDate,
         eventEndDate,
+        eventWeighInInfo,
+        earlyEntryDeadline,
+        entryDeadline,
+        earlyFirstEntryFee,
+        earlyAddEntryFee,
+        lateFirstEntryFee,
+        lateAddEntryFee,
+        eventStartTime,
+        eventWaiver,
       }
     ) => {
       try {
@@ -188,6 +197,15 @@ const resolvers = {
             eventGenInfo,
             eventStartDate,
             eventEndDate,
+            eventWeighInInfo,
+            earlyEntryDeadline,
+            entryDeadline,
+            earlyFirstEntryFee,
+            earlyAddEntryFee,
+            lateFirstEntryFee,
+            lateAddEntryFee,
+            eventStartTime,
+            eventWaiver,
           }
         );
         const updatedEvent = await Event.findByIdAndUpdate({ _id });

@@ -34,10 +34,14 @@ const eventSchema = new Schema({
   earlyEntryDeadline: {
     type: Date,
   },
-  eventStartTime: String,
   entryDeadline: {
     type: Date,
   },
+  earlyFirstEntryFee: Number,
+  earlyAddEntryFee: Number,
+  lateFirstEntryFee: Number,
+  lateAddEntryFee: Number,
+  eventStartTime: String,
   eventWaiver: String,
   createdBy: {
     type: Schema.Types.ObjectId,
