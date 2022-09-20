@@ -54,6 +54,14 @@ const typeDefs = gql`
     entryDeadline: String
     eventWaiver: String
     judoDivJNov: Boolean
+    judoDivJAdv: Boolean
+    judoDivSNov: Boolean
+    judoDivSAdv: Boolean
+    judoDivSOpen: Boolean
+    judoDivMNov: Boolean
+    judoDivMAdv: Boolean
+    judoDivVI: Boolean
+    judoDivKata: Boolean
     createdBy: String
     slug: String
   }
@@ -150,6 +158,14 @@ const typeDefs = gql`
       eventStartTime: String
       eventWaiver: String
       judoDivJNov: Boolean
+      judoDivJAdv: Boolean
+      judoDivSNov: Boolean
+      judoDivSAdv: Boolean
+      judoDivSOpen: Boolean
+      judoDivMNov: Boolean
+      judoDivMAdv: Boolean
+      judoDivVI: Boolean
+      judoDivKata: Boolean
     ): Event
   }
 `;

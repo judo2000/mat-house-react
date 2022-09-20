@@ -212,6 +212,14 @@ export const UPDATE_EVENT = gql`
     $eventStartTime: String
     $eventWaiver: String
     $judoDivJNov: Boolean
+    $judoDivJAdv: Boolean
+    $judoDivSNov: Boolean
+    $judoDivSAdv: Boolean
+    $judoDivSOpen: Boolean
+    $judoDivMNov: Boolean
+    $judoDivMAdv: Boolean
+    $judoDivVI: Boolean
+    $judoDivKata: Boolean
   ) {
     updateEvent(
       _id: $id
@@ -233,6 +241,14 @@ export const UPDATE_EVENT = gql`
       eventStartTime: $eventStartTime
       eventWaiver: $eventWaiver
       judoDivJNov: $judoDivJNov
+      judoDivJAdv: $judoDivJAdv
+      judoDivSNov: $judoDivSNov
+      judoDivSAdv: $judoDivSAdv
+      judoDivSOpen: $judoDivSOpen
+      judoDivMNov: $judoDivMNov
+      judoDivMAdv: $judoDivMAdv
+      judoDivVI: $judoDivVI
+      judoDivKata: $judoDivKata
     ) {
       _id
       eventStyle
@@ -253,6 +269,14 @@ export const UPDATE_EVENT = gql`
       eventStartTime
       eventWaiver
       judoDivJNov
+      judoDivJAdv
+      judoDivSNov
+      judoDivSAdv
+      judoDivSOpen
+      judoDivMNov
+      judoDivMAdv
+      judoDivVI
+      judoDivKata
     }
   }
 `;

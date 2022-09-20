@@ -30,6 +30,15 @@ const Divisions = () => {
   const [lateFirstEntryFee, setLateFirstEntryFee] = useState('');
   const [lateAddEntryFee, setLateAddEntryFee] = useState('');
   const [judoDivJNov, setJudoDivJNov] = useState('');
+  const [judoDivJAdv, setJudoDivJAdv] = useState('');
+  const [judoDivSNov, setJudoDivSNov] = useState('');
+  const [judoDivSAdv, setJudoDivSAdv] = useState('');
+  const [judoDivSOpen, setJudoDivSOpen] = useState('');
+  const [judoDivMNov, setJudoDivMNov] = useState('');
+  const [judoDivMAdv, setJudoDivMAdv] = useState('');
+  const [judoDivVI, setJudoDivVI] = useState('');
+  const [judoDivKata, setJudoDivKata] = useState('');
+
   const { data, loading } = useQuery(GET_EVENT_BY_ID, {
     variables: { id: id },
   });
@@ -105,6 +114,14 @@ const Divisions = () => {
           eventStartTime,
           eventWaiver,
           judoDivJNov,
+          judoDivJAdv,
+          judoDivSNov,
+          judoDivSAdv,
+          judoDivSOpen,
+          judoDivMNov,
+          judoDivMAdv,
+          judoDivVI,
+          judoDivKata,
         },
       });
       console.log('DATA!!!!!!! ', data);
@@ -136,11 +153,82 @@ const Divisions = () => {
                     <Col sm={12} md={8}>
                       <Form.Check
                         type='checkbox'
-                        label='judoDivJNov'
+                        label='Junior Novice'
                         id='judoDivJNov'
                         name='judoDivJNov'
                         checked={judoDivJNov}
                         onChange={(e) => setJudoDivJNov(e.target.checked)}
+                      ></Form.Check>
+
+                      <Form.Check
+                        type='checkbox'
+                        label='Junior Advanced'
+                        id='judoDivJAdv'
+                        name='judoDivJAdv'
+                        checked={judoDivJAdv}
+                        onChange={(e) => setJudoDivJAdv(e.target.checked)}
+                      ></Form.Check>
+
+                      <Form.Check
+                        type='checkbox'
+                        label='Senior Novice'
+                        id='judoDivSNov'
+                        name='judoDivSNov'
+                        checked={judoDivSNov}
+                        onChange={(e) => setJudoDivSNov(e.target.checked)}
+                      ></Form.Check>
+
+                      <Form.Check
+                        type='checkbox'
+                        label='Senior Advanced'
+                        id='judoDivSAdv'
+                        name='judoDivSAdv'
+                        checked={judoDivSAdv}
+                        onChange={(e) => setJudoDivSAdv(e.target.checked)}
+                      ></Form.Check>
+
+                      <Form.Check
+                        type='checkbox'
+                        label='Senior Open'
+                        id='judoDivSOpen'
+                        name='judoDivSOpen'
+                        checked={judoDivSOpen}
+                        onChange={(e) => setJudoDivSOpen(e.target.checked)}
+                      ></Form.Check>
+
+                      <Form.Check
+                        type='checkbox'
+                        label='Master Novice'
+                        id='judoDivMNov'
+                        name='judoDivMNov'
+                        checked={judoDivMNov}
+                        onChange={(e) => setJudoDivMNov(e.target.checked)}
+                      ></Form.Check>
+
+                      <Form.Check
+                        type='checkbox'
+                        label='Master Advanced'
+                        id='judoDivMAdv'
+                        name='judoDivMAdv'
+                        checked={judoDivMAdv}
+                        onChange={(e) => setJudoDivMAdv(e.target.checked)}
+                      ></Form.Check>
+
+                      <Form.Check
+                        type='checkbox'
+                        label='Visually Impaired'
+                        id='judoDivVI'
+                        name='judoDivVI'
+                        checked={judoDivVI}
+                        onChange={(e) => setJudoDivVI(e.target.checked)}
+                      ></Form.Check>
+                      <Form.Check
+                        type='checkbox'
+                        label='Kata'
+                        id='judoDivKata'
+                        name='judoDivKata'
+                        checked={judoDivKata}
+                        onChange={(e) => setJudoDivKata(e.target.checked)}
                       ></Form.Check>
                     </Col>
                   </Row>

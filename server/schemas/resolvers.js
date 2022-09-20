@@ -184,6 +184,14 @@ const resolvers = {
         eventStartTime,
         eventWaiver,
         judoDivJNov,
+        judoDivJAdv,
+        judoDivSNov,
+        judoDivSAdv,
+        judoDivSOpen,
+        judoDivMNov,
+        judoDivMAdv,
+        judoDivVI,
+        judoDivKata,
       }
     ) => {
       try {
@@ -208,6 +216,14 @@ const resolvers = {
             eventStartTime,
             eventWaiver,
             judoDivJNov,
+            judoDivJAdv,
+            judoDivSNov,
+            judoDivSAdv,
+            judoDivSOpen,
+            judoDivMNov,
+            judoDivMAdv,
+            judoDivVI,
+            judoDivKata,
           }
         );
         const updatedEvent = await Event.findByIdAndUpdate({ _id });

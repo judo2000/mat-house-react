@@ -125,6 +125,15 @@ export const GET_EVENT_BY_ID = gql`
       lateAddEntryFee
       eventStartTime
       eventWaiver
+      judoDivJNov
+      judoDivJAdv
+      judoDivSNov
+      judoDivSAdv
+      judoDivSOpen
+      judoDivMNov
+      judoDivMAdv
+      judoDivVI
+      judoDivKata
       slug
     }
   }
