@@ -62,6 +62,7 @@ const typeDefs = gql`
     judoDivMAdv: Boolean
     judoDivVI: Boolean
     judoDivKata: Boolean
+    logo: String
     createdBy: String
     slug: String
   }
@@ -166,6 +167,7 @@ const typeDefs = gql`
       judoDivMAdv: Boolean
       judoDivVI: Boolean
       judoDivKata: Boolean
+      logo: String
     ): Event
   }
 `;

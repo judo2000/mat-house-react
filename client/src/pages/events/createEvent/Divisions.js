@@ -91,7 +91,6 @@ const Divisions = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(judoDivJNov);
     try {
       const { data } = await updateEvent({
         variables: {
@@ -125,7 +124,7 @@ const Divisions = () => {
         },
       });
       console.log('DATA!!!!!!! ', data);
-      navigate(`/events/createEvent/divisions?eID=${id}`);
+      navigate(`/events/createEvent/logo?eID=${id}`);
     } catch (error) {
       console.log(error);
     }

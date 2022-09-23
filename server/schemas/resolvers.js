@@ -192,6 +192,7 @@ const resolvers = {
         judoDivMAdv,
         judoDivVI,
         judoDivKata,
+        logo,
       }
     ) => {
       try {
@@ -224,6 +225,7 @@ const resolvers = {
             judoDivMAdv,
             judoDivVI,
             judoDivKata,
+            logo,
           }
         );
         const updatedEvent = await Event.findByIdAndUpdate({ _id });

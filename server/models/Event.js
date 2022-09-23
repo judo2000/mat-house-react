@@ -52,6 +52,7 @@ const eventSchema = new Schema({
   judoDivMAdv: Boolean,
   judoDivVI: Boolean,
   judoDivKata: Boolean,
+  logo: String,
   createdBy: {
     type: Schema.Types.ObjectId,
     ref: 'Club',

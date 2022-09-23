@@ -19,6 +19,7 @@ import IndividualEvent from './pages/events/IndividualEvent';
 import BasicInfo from './pages/events/createEvent/BasicInfo';
 import Logistics from './pages/events/createEvent/Logistics';
 import Divisions from './pages/events/createEvent/Divisions';
+import Logo from './pages/events/createEvent/Logo';
 
 //Construct our main GraphQL API endpoint
 const httpLink = createHttpLink({
@@ -71,6 +72,7 @@ function App() {
               path='/events/createEvent/divisions'
               element={<Divisions />}
             />
+            <Route path='/events/createEvent/logo' element={<Logo />} />
           </Routes>
           <Footer />
         </Router>

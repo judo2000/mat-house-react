@@ -220,6 +220,7 @@ export const UPDATE_EVENT = gql`
     $judoDivMAdv: Boolean
     $judoDivVI: Boolean
     $judoDivKata: Boolean
+    $logo: String
   ) {
     updateEvent(
       _id: $id
@@ -249,6 +250,7 @@ export const UPDATE_EVENT = gql`
       judoDivMAdv: $judoDivMAdv
       judoDivVI: $judoDivVI
       judoDivKata: $judoDivKata
+      logo: $logo
     ) {
       _id
       eventStyle
@@ -277,6 +279,7 @@ export const UPDATE_EVENT = gql`
       judoDivMAdv
       judoDivVI
       judoDivKata
+      logo
     }
   }
 `;
