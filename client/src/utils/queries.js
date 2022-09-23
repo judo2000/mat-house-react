@@ -134,6 +134,7 @@ export const GET_EVENT_BY_ID = gql`
       judoDivMAdv
       judoDivVI
       judoDivKata
+      logo
       slug
     }
   }

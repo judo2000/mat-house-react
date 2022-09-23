@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form } from 'react-bootstrap';
+import { Button, Col, Form, Row } from 'react-bootstrap';
 import { storage } from '../../../firebase';
 import { ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
@@ -7,12 +7,14 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_EVENT_BY_ID } from '../../../utils/queries';
 import { UPDATE_EVENT } from '../../../utils/mutations';
+import EventSteps from '../../../components/events/EventSteps';
+import FormContainer from '../../../components/FormContainer';
 
 const Logo = () => {
   const search = useLocation().search;
   const id = new URLSearchParams(search).get('eID');
 
-  // const [eventStyle, setEventStyle] = useState('');
+  const [eventStyle, setEventStyle] = useState('');
   // const [eventType, setEventType] = useState('');
   // const [eventName, setEventName] = useState('');
   // const [eventCity, setEventCity] = useState('');
@@ -41,90 +43,32 @@ const Logo = () => {
   //const [logo, setLogo] = useState(null);
   const [logoUpload, setLogoUpload] = useState(null);
 
-  let logo = '';
   // const { data, loading } = useQuery(GET_EVENT_BY_ID, {
   //   variables: { id: id },
   // });
 
   // useEffect(() => {
-  //   console.log(logo);
+  //   //   console.log(logo);
   //   const eventData = data?.eventById || {};
   //   if (eventData) {
   //     setEventStyle(eventData.eventStyle);
-  //     setEventType(eventData.eventType);
-  //     setEventName(eventData.eventName);
-  //     setEventCity(eventData.eventCity);
-  //     setEventState(eventData.eventState);
-  //     setEventGenInfo(eventData.eventGenInfo);
-  //     setEventStartDate(eventData.eventStartDate);
-  //     setEventEndDate(eventData.eventEndDate);
-  //     setEventWeighInInfo(eventData.eventWeighInInfo);
-  //     setEarlyEntryDeadline(eventData.earlyEntryDeadline);
-  //     setEntryDeadline(eventData.entryDeadline);
-  //     setEventStartTime(eventData.eventStartTime);
-  //     setEventWaiver(eventData.eventWaiver);
-  //     setEarlyFirstEntryFee(eventData.earlyFirstEntryFee);
-  //     setEarlyAddEntryFee(eventData.earlyAddEntryFee);
-  //     setLateFirstEntryFee(eventData.lateFirstEntryFee);
-  //     setLateAddEntryFee(eventData.lateAddEntryFee);
-  //     setJudoDivJNov(eventData.judoDivJNov);
-  //     setJudoDivJAdv(eventData.judoDivJAdv);
-  //     setJudoDivSNov(eventData.judoDivSNov);
-  //     setJudoDivSAdv(eventData.judoDivSAdv);
-  //     setJudoDivSOpen(eventData.judoDivSOpen);
-  //     setJudoDivMNov(eventData.judoDivMNov);
-  //     setJudoDivMAdv(eventData.judoDivMAdv);
-  //     setJudoDivVI(eventData.judoDivVI);
-  //     setJudoDivKata(eventData.judoDivKata);
-  // }
-  // }, [
-  //   setEventStyle,
-  //   setEventType,
-  //   setEventName,
-  //   setEventCity,
-  //   setEventState,
-  //   setEventGenInfo,
-  //   setEventStartDate,
-  //   setEventEndDate,
-  //   setEventWeighInInfo,
-  //   setEarlyEntryDeadline,
-  //   setEntryDeadline,
-  //   setEventStartTime,
-  //   setEventWaiver,
-  //   setEarlyFirstEntryFee,
-  //   setEarlyAddEntryFee,
-  //   setLateFirstEntryFee,
-  //   setLateAddEntryFee,
-  //   setJudoDivJNov,
-  //   setJudoDivJAdv,
-  //   setJudoDivSNov,
-  //   setJudoDivSAdv,
-  //   setJudoDivSOpen,
-  //   setJudoDivMNov,
-  //   setJudoDivMAdv,
-  //   setJudoDivVI,
-  //   setJudoDivKata,
-  //   data,
-  //   logo,
-  // ]);
+  //   }
+  // }, [setEventStyle, data]);
 
   // set up mutations
   const [updateEvent, { error }] = useMutation(UPDATE_EVENT);
   const navigate = useNavigate();
 
-  let logoRef;
-  let logoName;
-  const uploadLogo = async () => {
+  const uploadLogo = async (e) => {
+    e.preventDefault();
     if (logoUpload === null) return;
-    console.log(logoUpload);
-    logoName = `${logoUpload.name}${v4()}`;
-    console.log(logoName);
+    const logoName = `${logoUpload.name}${v4()}`;
     const logoRef = ref(storage, `/logos/events/${logoName}`);
 
     uploadBytes(logoRef, logoUpload);
 
-    logo = `https://firebasestorage.googleapis.com/v0/b/${logoRef.bucket}/o/logos%2Fevents%2F${logoName}?alt=media`;
-
+    const logo = `https://firebasestorage.googleapis.com/v0/b/${logoRef.bucket}/o/logos%2Fevents%2F${logoName}?alt=media`;
+    console.log(logo);
     // console.log(
     //   `https://firebasestorage.googleapis.com/v0/b/${logoRef.bucket}/o/${logoRef.fullPath}?alt=media`
     // );
@@ -133,52 +77,49 @@ const Logo = () => {
       const { data } = await updateEvent({
         variables: {
           id,
-          // eventStyle,
-          // eventType,
-          // eventName,
-          // eventCity,
-          // eventState,
-          // eventGenInfo,
-          // eventStartDate,
-          // eventEndDate,
-          // eventWeighInInfo,
-          // earlyEntryDeadline,
-          // entryDeadline,
-          // earlyFirstEntryFee,
-          // earlyAddEntryFee,
-          // lateFirstEntryFee,
-          // lateAddEntryFee,
-          // eventStartTime,
-          //eventWaiver,
-          // judoDivJNov,
-          // judoDivJAdv,
-          // judoDivSNov,
-          // judoDivSAdv,
-          // judoDivSOpen,
-          // judoDivMNov,
-          // judoDivMAdv,
-          // judoDivVI,
-          // judoDivKata,
           logo,
         },
       });
       console.log('DATA!!!!!!! ', data);
-      //navigate(`/events/createEvent/divisions?eID=${id}`);
+      navigate(`/events/createEvent/athleteInfo?eID=${id}`);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <>
-      <input
-        type='file'
-        onChange={(e) => {
-          setLogoUpload(e.target.files[0]);
-        }}
-      />
-      <button onClick={uploadLogo}>Submit</button>
-    </>
+    <div className='mt-4'>
+      <h1>Create Event</h1>
+      <FormContainer>
+        <EventSteps step1 step2 step3 step4 />
+        <h4>Logo</h4>
+        <Form onSubmit={uploadLogo} style={{ border: 'solid black 1px' }}>
+          <Row>
+            <Form.Group className='mb-3'>
+              <Col>
+                <Row>
+                  <Col sm={12} md={2} className='text-center'>
+                    <Form.Label className='form-label'>
+                      Select Logo <span className='text-danger'>*</span>
+                    </Form.Label>
+                  </Col>
+                  <Col sm={12} md={8}>
+                    <input
+                      type='file'
+                      onChange={(e) => {
+                        setLogoUpload(e.target.files[0]);
+                      }}
+                    />
+                  </Col>
+                </Row>
+              </Col>
+            </Form.Group>
+          </Row>
+
+          <Button type='submit'>Upload Logo</Button>
+        </Form>
+      </FormContainer>
+    </div>
   );
 };
 
