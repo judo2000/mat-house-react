@@ -141,11 +141,11 @@ const typeDefs = gql`
     ): Event
     updateEvent(
       _id: String
-      eventStyle: String!
-      eventType: String!
-      eventName: String!
-      eventCity: String!
-      eventState: String!
+      eventStyle: String
+      eventType: String
+      eventName: String
+      eventCity: String
+      eventState: String
       eventGenInfo: String
       eventStartDate: String
       eventEndDate: String

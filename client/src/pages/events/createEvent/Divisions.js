@@ -13,22 +13,22 @@ const Divisions = () => {
   const id = new URLSearchParams(search).get('eID');
 
   const [eventStyle, setEventStyle] = useState('');
-  const [eventType, setEventType] = useState('');
-  const [eventName, setEventName] = useState('');
-  const [eventCity, setEventCity] = useState('');
-  const [eventState, setEventState] = useState('');
-  const [eventGenInfo, setEventGenInfo] = useState('');
-  const [eventStartDate, setEventStartDate] = useState('');
-  const [eventEndDate, setEventEndDate] = useState('');
-  const [eventWeighInInfo, setEventWeighInInfo] = useState('');
-  const [earlyEntryDeadline, setEarlyEntryDeadline] = useState('');
-  const [entryDeadline, setEntryDeadline] = useState('');
-  const [eventStartTime, setEventStartTime] = useState('');
-  const [eventWaiver, setEventWaiver] = useState('');
-  const [earlyFirstEntryFee, setEarlyFirstEntryFee] = useState('');
-  const [earlyAddEntryFee, setEarlyAddEntryFee] = useState('');
-  const [lateFirstEntryFee, setLateFirstEntryFee] = useState('');
-  const [lateAddEntryFee, setLateAddEntryFee] = useState('');
+  // const [eventType, setEventType] = useState('');
+  // const [eventName, setEventName] = useState('');
+  // const [eventCity, setEventCity] = useState('');
+  // const [eventState, setEventState] = useState('');
+  // const [eventGenInfo, setEventGenInfo] = useState('');
+  // const [eventStartDate, setEventStartDate] = useState('');
+  // const [eventEndDate, setEventEndDate] = useState('');
+  // const [eventWeighInInfo, setEventWeighInInfo] = useState('');
+  // const [earlyEntryDeadline, setEarlyEntryDeadline] = useState('');
+  // const [entryDeadline, setEntryDeadline] = useState('');
+  // const [eventStartTime, setEventStartTime] = useState('');
+  // const [eventWaiver, setEventWaiver] = useState('');
+  // const [earlyFirstEntryFee, setEarlyFirstEntryFee] = useState('');
+  // const [earlyAddEntryFee, setEarlyAddEntryFee] = useState('');
+  // const [lateFirstEntryFee, setLateFirstEntryFee] = useState('');
+  // const [lateAddEntryFee, setLateAddEntryFee] = useState('');
   const [judoDivJNov, setJudoDivJNov] = useState('');
   const [judoDivJAdv, setJudoDivJAdv] = useState('');
   const [judoDivSNov, setJudoDivSNov] = useState('');
@@ -47,41 +47,41 @@ const Divisions = () => {
     const eventData = data?.eventById || {};
     if (eventData) {
       setEventStyle(eventData.eventStyle);
-      setEventType(eventData.eventType);
-      setEventName(eventData.eventName);
-      setEventCity(eventData.eventCity);
-      setEventState(eventData.eventState);
-      setEventGenInfo(eventData.eventGenInfo);
-      setEventStartDate(eventData.eventStartDate);
-      setEventEndDate(eventData.eventEndDate);
-      setEventWeighInInfo(eventData.eventWeighInInfo);
-      setEarlyEntryDeadline(eventData.earlyEntryDeadline);
-      setEntryDeadline(eventData.entryDeadline);
-      setEventStartTime(eventData.eventStartTime);
-      setEventWaiver(eventData.eventWaiver);
-      setEarlyFirstEntryFee(eventData.earlyFirstEntryFee);
-      setEarlyAddEntryFee(eventData.earlyAddEntryFee);
-      setLateFirstEntryFee(eventData.lateFirstEntryFee);
-      setLateAddEntryFee(eventData.lateAddEntryFee);
+      //     setEventType(eventData.eventType);
+      //     setEventName(eventData.eventName);
+      //     setEventCity(eventData.eventCity);
+      //     setEventState(eventData.eventState);
+      //     setEventGenInfo(eventData.eventGenInfo);
+      //     setEventStartDate(eventData.eventStartDate);
+      //     setEventEndDate(eventData.eventEndDate);
+      //     setEventWeighInInfo(eventData.eventWeighInInfo);
+      //     setEarlyEntryDeadline(eventData.earlyEntryDeadline);
+      //     setEntryDeadline(eventData.entryDeadline);
+      //     setEventStartTime(eventData.eventStartTime);
+      //     setEventWaiver(eventData.eventWaiver);
+      //     setEarlyFirstEntryFee(eventData.earlyFirstEntryFee);
+      //     setEarlyAddEntryFee(eventData.earlyAddEntryFee);
+      //     setLateFirstEntryFee(eventData.lateFirstEntryFee);
+      //     setLateAddEntryFee(eventData.lateAddEntryFee);
     }
   }, [
     setEventStyle,
-    setEventType,
-    setEventName,
-    setEventCity,
-    setEventState,
-    setEventGenInfo,
-    setEventStartDate,
-    setEventEndDate,
-    setEventWeighInInfo,
-    setEarlyEntryDeadline,
-    setEntryDeadline,
-    setEventStartTime,
-    setEventWaiver,
-    setEarlyFirstEntryFee,
-    setEarlyAddEntryFee,
-    setLateFirstEntryFee,
-    setLateAddEntryFee,
+    //   setEventType,
+    //   setEventName,
+    //   setEventCity,
+    //   setEventState,
+    //   setEventGenInfo,
+    //   setEventStartDate,
+    //   setEventEndDate,
+    //   setEventWeighInInfo,
+    //   setEarlyEntryDeadline,
+    //   setEntryDeadline,
+    //   setEventStartTime,
+    //   setEventWaiver,
+    //   setEarlyFirstEntryFee,
+    //   setEarlyAddEntryFee,
+    //   setLateFirstEntryFee,
+    //   setLateAddEntryFee,
     data,
   ]);
 
@@ -95,23 +95,23 @@ const Divisions = () => {
       const { data } = await updateEvent({
         variables: {
           id,
-          eventStyle,
-          eventType,
-          eventName,
-          eventCity,
-          eventState,
-          eventGenInfo,
-          eventStartDate,
-          eventEndDate,
-          eventWeighInInfo,
-          earlyEntryDeadline,
-          entryDeadline,
-          earlyFirstEntryFee,
-          earlyAddEntryFee,
-          lateFirstEntryFee,
-          lateAddEntryFee,
-          eventStartTime,
-          eventWaiver,
+          // eventStyle,
+          // eventType,
+          // eventName,
+          // eventCity,
+          // eventState,
+          // eventGenInfo,
+          // eventStartDate,
+          // eventEndDate,
+          // eventWeighInInfo,
+          // earlyEntryDeadline,
+          // entryDeadline,
+          // earlyFirstEntryFee,
+          // earlyAddEntryFee,
+          // lateFirstEntryFee,
+          // lateAddEntryFee,
+          // eventStartTime,
+          // eventWaiver,
           judoDivJNov,
           judoDivJAdv,
           judoDivSNov,

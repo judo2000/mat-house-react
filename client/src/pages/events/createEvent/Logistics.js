@@ -13,12 +13,12 @@ const Logistics = () => {
   const search = useLocation().search;
   const id = new URLSearchParams(search).get('eID');
 
-  const [eventStyle, setEventStyle] = useState('');
-  const [eventType, setEventType] = useState('');
-  const [eventName, setEventName] = useState('');
-  const [eventCity, setEventCity] = useState('');
-  const [eventState, setEventState] = useState('');
-  const [eventGenInfo, setEventGenInfo] = useState('');
+  // const [eventStyle, setEventStyle] = useState('');
+  // const [eventType, setEventType] = useState('');
+  // const [eventName, setEventName] = useState('');
+  // const [eventCity, setEventCity] = useState('');
+  // const [eventState, setEventState] = useState('');
+  // const [eventGenInfo, setEventGenInfo] = useState('');
   const [eventStartDate, setEventStartDate] = useState('');
   const [eventEndDate, setEventEndDate] = useState('');
   const [eventWeighInInfo, setEventWeighInInfo] = useState('');
@@ -31,39 +31,39 @@ const Logistics = () => {
   const [lateFirstEntryFee, setLateFirstEntryFee] = useState('');
   const [lateAddEntryFee, setLateAddEntryFee] = useState('');
 
-  const { data, loading } = useQuery(GET_EVENT_BY_ID, {
-    variables: { id: id },
-  });
-  console.log(id);
-  console.log('DATA ', data);
-  useEffect(() => {
-    const eventData = data?.eventById || {};
+  // const { data, loading } = useQuery(GET_EVENT_BY_ID, {
+  //   variables: { id: id },
+  // });
+  // console.log(id);
+  // console.log('DATA ', data);
+  // useEffect(() => {
+  //   const eventData = data?.eventById || {};
 
-    if (eventData) {
-      setEventStyle(eventData.eventStyle);
-      setEventType(eventData.eventType);
-      setEventName(eventData.eventName);
-      setEventCity(eventData.eventCity);
-      setEventState(eventData.eventState);
-      setEventGenInfo(eventData.eventGenInfo);
-      //setEventStartDate(eventData.eventGenInfo);
-      //setEarlyEntryDeadline(eventData.earlyEntryDeadline);
-      // const convertedEarlyEntryDeadline = parseInt(
-      //   eventData.earlyEntryDeadline
-      // );
-      // setEarlyEntryDeadline(
-      //   moment(convertedEarlyEntryDeadline).format('MM/DD/YYYY')
-      // );
-    }
-  }, [
-    setEventStyle,
-    setEventType,
-    setEventName,
-    setEventCity,
-    setEventState,
-    setEventGenInfo,
-    data,
-  ]);
+  //   if (eventData) {
+  //     setEventStyle(eventData.eventStyle);
+  //     setEventType(eventData.eventType);
+  //     setEventName(eventData.eventName);
+  //     setEventCity(eventData.eventCity);
+  //     setEventState(eventData.eventState);
+  //     setEventGenInfo(eventData.eventGenInfo);
+  //     //setEventStartDate(eventData.eventGenInfo);
+  //     //setEarlyEntryDeadline(eventData.earlyEntryDeadline);
+  //     // const convertedEarlyEntryDeadline = parseInt(
+  //     //   eventData.earlyEntryDeadline
+  //     // );
+  //     // setEarlyEntryDeadline(
+  //     //   moment(convertedEarlyEntryDeadline).format('MM/DD/YYYY')
+  //     // );
+  //   }
+  // }, [
+  //   setEventStyle,
+  //   setEventType,
+  //   setEventName,
+  //   setEventCity,
+  //   setEventState,
+  //   setEventGenInfo,
+  //   data,
+  // ]);
 
   // set up mutation
   const [updateEvent, { error }] = useMutation(UPDATE_EVENT);
@@ -101,12 +101,12 @@ const Logistics = () => {
       const { data } = await updateEvent({
         variables: {
           id,
-          eventStyle,
-          eventType,
-          eventName,
-          eventCity,
-          eventState,
-          eventGenInfo,
+          // eventStyle,
+          // eventType,
+          // eventName,
+          // eventCity,
+          // eventState,
+          // eventGenInfo,
           eventStartDate,
           eventEndDate,
           eventWeighInInfo,

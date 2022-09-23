@@ -194,11 +194,11 @@ export const CREATE_EVENT = gql`
 export const UPDATE_EVENT = gql`
   mutation UpdateEvent(
     $id: String!
-    $eventStyle: String!
-    $eventType: String!
-    $eventName: String!
-    $eventCity: String!
-    $eventState: String!
+    $eventStyle: String
+    $eventType: String
+    $eventName: String
+    $eventCity: String
+    $eventState: String
     $eventGenInfo: String
     $eventStartDate: String
     $eventEndDate: String
