@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import FormContainer from '../../../components/FormContainer';
-import EventSteps from '../../../components/events/EventSteps';
+import React, { useState, useEffect } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
-import { CREATE_EVENT } from '../../../utils/mutations';
 import ReactQuill from 'react-quill';
+import { useLocation, useNavigate } from 'react-router-dom';
+import EventSteps from '../../../components/events/EventSteps';
+import FormContainer from '../../../components/FormContainer';
+import Auth from '../../../utils/auth';
+import jwt from 'jwt-decode';
+import { useMutation, useQuery } from '@apollo/client';
+import { GET_EVENT_BY_ID } from '../../../utils/queries';
+import { UPDATE_EVENT } from '../../../utils/mutations';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const BasicInfo = () => {
+const EditBasicInfo = () => {
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
+
   const search = useLocation().search;
+  const id = new URLSearchParams(search).get('eID');
 
-  let [count, setCount] = useState(0);
-  const createdBy = new URLSearchParams(search).get('cID');
   const [eventStyle, setEventStyle] = useState('');
   const [eventType, setEventType] = useState('');
   const [eventName, setEventName] = useState('');
@@ -19,80 +25,126 @@ const BasicInfo = () => {
   const [eventState, setEventState] = useState('');
   const [eventGenInfo, setEventGenInfo] = useState('');
 
-  const [addEvent] = useMutation(CREATE_EVENT);
-
-  //const [errorMessage, setErrorMessage] = useState('');
+  const { data, loading } = useQuery(GET_EVENT_BY_ID, {
+    variables: { id: id },
+  });
 
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    if (!token) {
+      setErrorMessage('You must be logged in to access this page');
+      toast('You must be logged in to access this page');
+      const timer = setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }
+    const eventData = data?.eventById || {};
+
+    if (eventData) {
+      setEventStyle(eventData.eventStyle);
+      setEventType(eventData.eventType);
+      setEventName(eventData.eventName);
+      setEventCity(eventData.eventCity);
+      setEventState(eventData.eventState);
+      setEventGenInfo(eventData.eventGenInfo);
+    }
+  }, [
+    token,
+    navigate,
+    setEventStyle,
+    setEventType,
+    setEventName,
+    setEventCity,
+    setEventState,
+    setEventGenInfo,
+    data,
+  ]);
+
+  // set up mutation
+  const [updateEvent, { error }] = useMutation(UPDATE_EVENT);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //console.log(count);
-    // let fieldEl = document.getElementById(`customField1`);
-    // console.log(fieldEl.value);
-
-    for (let i = 1; i < count + 1; i++) {
-      console.log('i = ', i);
-      // let fieldEl = document.getElementById(`customField${i}`);
-      // let fieldVal = fieldEl.value;
-      // console.log(fieldEl);
-      // customBasicFields.push(fieldVal);
+    if (eventCity === '') {
+      toast.error('City is required', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setErrorMessage('City is required');
+    } else if (eventState === '') {
+      setErrorMessage('State is required');
+      toast.error('State is required', {
+        position: 'top-right',
+        theme: 'dark',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+    if (errorMessage) {
     }
     try {
-      const { data } = await addEvent({
+      const { data } = await updateEvent({
         variables: {
+          id,
           eventStyle,
           eventType,
           eventName,
           eventCity,
           eventState,
           eventGenInfo,
-          createdBy,
         },
       });
-      console.log(data);
-      navigate(`/events/createEvent/logistics?eID=${data.addEvent._id}`);
+      navigate(`/events/createEvent/logistics?eId${id}`);
     } catch (error) {
       console.log(error);
+      setErrorMessage(error.message);
+      if (error.message.includes('eventName_1 dup key')) {
+        toast('That event name is taken, please choose another name');
+      } else if (eventCity === '') {
+        toast('City is required');
+      } else if (error.message.includes('Please fill a valid email address')) {
+        toast('Please enter a valid email address');
+      } else if (error.message.includes('clubEmail_1 dup key')) {
+        toast(
+          'That club email is already taken, please enter another email address.'
+        );
+      }
     }
   };
-
   const handleAddFields = async (e) => {
     e.preventDefault();
-    count = count + 1;
-    setCount(count);
-    let customFieldsDiv = document.getElementById('customFields');
-    // Create an <input> element, set its type and name attributes
-    let customGrid = `
-      <div class='row'>
-        <div class='mb-3'>
-          <div class='col'>
-            <div class='row'>
-              <div class='text-end col-md-2 col-sm-12'>
-                <div class='form-label text-center'>
-                  Custom Field ${count}
-                </div>
-              </div>
-              <div class='col-sm-12 col-md-8'>
-                <input id=customField${count} type='text' name='customField${count}' value />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
-    // // let input = document.createElement('input');
-    // // input.type = 'text';
-    // // input.name = 'customField' + count;
-    // //Row.content(input);
-    customFieldsDiv.innerHTML += customGrid;
-    // Append a line break
-    customFieldsDiv.appendChild(document.createElement('br'));
-    return count;
   };
-
   return (
     <div className='mt-4'>
+      {errorMessage ? (
+        <h3>
+          <ToastContainer
+            position='top-right'
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+        </h3>
+      ) : (
+        ''
+      )}
       <h1>Create Event</h1>
       <FormContainer>
         <EventSteps step1 />
@@ -116,7 +168,8 @@ const BasicInfo = () => {
                       label='Brazilian Jui Jitsu'
                       id='BJJ'
                       name='style'
-                      value='Brazilian Jui Jitsu'
+                      value='BJJ'
+                      checked={eventStyle === 'BJJ'}
                       onChange={(e) => setEventStyle(e.target.value)}
                     ></Form.Check>
                     <Form.Check
@@ -125,6 +178,7 @@ const BasicInfo = () => {
                       id='Judo'
                       name='style'
                       value='Judo'
+                      checked={eventStyle === 'Judo'}
                       onChange={(e) => setEventStyle(e.target.value)}
                     ></Form.Check>
                   </Col>
@@ -149,6 +203,7 @@ const BasicInfo = () => {
                       id='Tournament'
                       name='eventType'
                       value='Tournament'
+                      checked={eventType === 'Tournament'}
                       onChange={(e) => setEventType(e.target.value)}
                     ></Form.Check>
                     <Form.Check
@@ -157,6 +212,7 @@ const BasicInfo = () => {
                       id='Clinic'
                       name='eventType'
                       value='Clinic'
+                      checked={eventType === 'Clinic'}
                       onChange={(e) => setEventType(e.target.value)}
                     ></Form.Check>
                   </Col>
@@ -261,73 +317,6 @@ const BasicInfo = () => {
             </Form.Group>
           </Row>
 
-          {/* <Row>
-            <Form.Group className='mb-3'>
-              <Col>
-                <Row>
-                  <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>
-                      Long Description
-                    </Form.Label>
-                  </Col>
-                  <Col sm={12} md='8' className='text-start'>
-                    <ReactQuill
-                      value={longDesc ? longDesc : ''}
-                      // onChange={(e) => setContent(e.target.value)}
-                      onChange={setLongDesc}
-                      theme='snow'
-                    ></ReactQuill>
-                  </Col>
-                </Row>
-              </Col>
-            </Form.Group>
-          </Row> */}
-
-          {/* <Row>
-            <Form.Group className='my-3'>
-              <Col>
-                <Row>
-                  <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>
-                      Early Entry Deadline{' '}
-                      <span className='text-danger'>*</span>
-                    </Form.Label>
-                  </Col>
-                  <Col sm={12} md={8}>
-                    <Form.Control
-                      type='date'
-                      label='Early Entry Deadline '
-                      id='earlyEntryDeadline'
-                      name='earlyEntryDeadline'
-                      value={earlyEntryDeadline}
-                      onChange={(e) => setEarlyEntryDeadline(e.target.value)}
-                    ></Form.Control>
-                  </Col>
-                </Row>
-              </Col>
-            </Form.Group>
-          </Row> */}
-
-          {/* <Row>
-            <Form.Group className='mb-3'>
-              <Col>
-                <Row>
-                  <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>Waiver</Form.Label>
-                  </Col>
-                  <Col sm={12} md='8' className='text-start'>
-                    <ReactQuill
-                      value={waiver ? waiver : ''}
-                      // onChange={(e) => setContent(e.target.value)}
-                      onChange={setWaiver}
-                      theme='snow'
-                    ></ReactQuill>
-                  </Col>
-                </Row>
-              </Col>
-            </Form.Group>
-          </Row> */}
-
           <Button type='btn' onClick={handleAddFields}>
             Add Custom Fields
           </Button>
@@ -342,4 +331,4 @@ const BasicInfo = () => {
   );
 };
 
-export default BasicInfo;
+export default EditBasicInfo;

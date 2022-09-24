@@ -16,7 +16,7 @@ const EventSteps = ({ step1, step2, step3, step4, step5, step6 }) => {
             <th className='text-center'>
               <Nav.Item>
                 {step1 ? (
-                  <LinkContainer to={`/events/createEvent/basic?eID=${id}`}>
+                  <LinkContainer to={`/events/createEvent/editbasic?eID=${id}`}>
                     <Nav.Link className='button_round_active'>Step 1</Nav.Link>
                   </LinkContainer>
                 ) : (
