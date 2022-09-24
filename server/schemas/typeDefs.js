@@ -63,6 +63,15 @@ const typeDefs = gql`
     judoDivVI: Boolean
     judoDivKata: Boolean
     logo: String
+    athleteFirstName: Boolean
+    athleteLastName: Boolean
+    athleteDOB: Boolean
+    athleteAddress1: Boolean
+    athleteAddress2: Boolean
+    athleteCity: Boolean
+    athleteState: Boolean
+    athleteEmail: Boolean
+    athleteRank: Boolean
     createdBy: String
     slug: String
   }
@@ -168,6 +177,15 @@ const typeDefs = gql`
       judoDivVI: Boolean
       judoDivKata: Boolean
       logo: String
+      athleteFirstName: Boolean
+      athleteLastName: Boolean
+      athleteDOB: Boolean
+      athleteAddress1: Boolean
+      athleteAddress2: Boolean
+      athleteCity: Boolean
+      athleteState: Boolean
+      athleteEmail: Boolean
+      athleteRank: Boolean
     ): Event
   }
 `;

@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import FormContainer from '../../../components/FormContainer';
 import EventSteps from '../../../components/events/EventSteps';
 import { Button, Col, Form, Row } from 'react-bootstrap';
-import { useMutation } from '@apollo/client';
-import { CREATE_EVENT } from '../../../utils/mutations';
+import { useMutation, useQuery } from '@apollo/client';
+import { CREATE_EVENT, UPDATE_EVENT } from '../../../utils/mutations';
 import ReactQuill from 'react-quill';
+import { GET_EVENT_BY_ID } from '../../../utils/queries';
 
 const BasicInfo = () => {
   const search = useLocation().search;
+  const id = new URLSearchParams(search).get('eID');
 
   let [count, setCount] = useState(0);
   const createdBy = new URLSearchParams(search).get('cID');
@@ -22,6 +24,37 @@ const BasicInfo = () => {
   const [addEvent] = useMutation(CREATE_EVENT);
 
   //const [errorMessage, setErrorMessage] = useState('');
+
+  console.log('We have an id');
+  const { data, loading } = useQuery(GET_EVENT_BY_ID, {
+    variables: { id: id },
+  });
+  // console.log(id);
+  // console.log('DATA ', data);
+
+  useEffect(() => {
+    const eventData = data?.eventById || {};
+
+    if (eventData) {
+      setEventStyle(eventData.eventStyle);
+      setEventType(eventData.eventType);
+      setEventName(eventData.eventName);
+      setEventCity(eventData.eventCity);
+      setEventState(eventData.eventState);
+      setEventGenInfo(eventData.eventGenInfo);
+    }
+  }, [
+    setEventStyle,
+    setEventType,
+    setEventName,
+    setEventCity,
+    setEventState,
+    setEventGenInfo,
+    data,
+  ]);
+
+  // set up mutation
+  const [updateEvent, { errorUpdate }] = useMutation(UPDATE_EVENT);
 
   const navigate = useNavigate();
 
@@ -39,19 +72,42 @@ const BasicInfo = () => {
       // customBasicFields.push(fieldVal);
     }
     try {
-      const { data } = await addEvent({
-        variables: {
-          eventStyle,
-          eventType,
-          eventName,
-          eventCity,
-          eventState,
-          eventGenInfo,
-          createdBy,
-        },
-      });
+      if (!id) {
+        console.log('NOT id');
+        const { data } = await addEvent({
+          variables: {
+            eventStyle,
+            eventType,
+            eventName,
+            eventCity,
+            eventState,
+            eventGenInfo,
+            createdBy,
+          },
+        });
+      } else {
+        console.log('id');
+        const { data } = await updateEvent({
+          variables: {
+            id,
+            eventStyle,
+            eventType,
+            eventName,
+            eventCity,
+            eventState,
+            eventGenInfo,
+            createdBy,
+          },
+        });
+      }
       console.log(data);
-      navigate(`/events/createEvent/logistics?eID=${data.addEvent._id}`);
+      let eID = '';
+      if (!id) {
+        eID = data.addEvent._id;
+      } else {
+        eID = id;
+      }
+      navigate(`/events/createEvent/logistics?eID=${eID}`);
     } catch (error) {
       console.log(error);
     }
@@ -117,6 +173,7 @@ const BasicInfo = () => {
                       id='BJJ'
                       name='style'
                       value='Brazilian Jui Jitsu'
+                      checked={eventStyle}
                       onChange={(e) => setEventStyle(e.target.value)}
                     ></Form.Check>
                     <Form.Check
@@ -125,6 +182,7 @@ const BasicInfo = () => {
                       id='Judo'
                       name='style'
                       value='Judo'
+                      checked={eventStyle}
                       onChange={(e) => setEventStyle(e.target.value)}
                     ></Form.Check>
                   </Col>
@@ -149,6 +207,7 @@ const BasicInfo = () => {
                       id='Tournament'
                       name='eventType'
                       value='Tournament'
+                      checked={eventType}
                       onChange={(e) => setEventType(e.target.value)}
                     ></Form.Check>
                     <Form.Check
@@ -157,6 +216,7 @@ const BasicInfo = () => {
                       id='Clinic'
                       name='eventType'
                       value='Clinic'
+                      checked={eventType}
                       onChange={(e) => setEventType(e.target.value)}
                     ></Form.Check>
                   </Col>

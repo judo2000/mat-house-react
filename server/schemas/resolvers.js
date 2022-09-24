@@ -193,6 +193,15 @@ const resolvers = {
         judoDivVI,
         judoDivKata,
         logo,
+        athleteFirstName,
+        athleteLastName,
+        athleteDOB,
+        athleteAddress1,
+        athleteAddress2,
+        athleteCity,
+        athleteState,
+        athleteEmail,
+        athleteRank,
       }
     ) => {
       try {
@@ -226,6 +235,15 @@ const resolvers = {
             judoDivVI,
             judoDivKata,
             logo,
+            athleteFirstName,
+            athleteLastName,
+            athleteDOB,
+            athleteAddress1,
+            athleteAddress2,
+            athleteCity,
+            athleteState,
+            athleteEmail,
+            athleteRank,
           }
         );
         const updatedEvent = await Event.findByIdAndUpdate({ _id });

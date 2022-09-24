@@ -135,6 +135,15 @@ export const GET_EVENT_BY_ID = gql`
       judoDivVI
       judoDivKata
       logo
+      athleteFirstName
+      athleteLastName
+      athleteDOB
+      athleteAddress1
+      athleteAddress2
+      athleteCity
+      athleteState
+      athleteEmail
+      athleteRank
       slug
     }
   }

@@ -146,7 +146,7 @@ const Divisions = () => {
                   <Row>
                     <Col sm={12} md={2} className='text-center'>
                       <Form.Label className='form-label'>
-                        Style <span className='text-danger'>*</span>
+                        Divisions <span className='text-danger'>*</span>
                       </Form.Label>
                     </Col>
                     <Col sm={12} md={8}>

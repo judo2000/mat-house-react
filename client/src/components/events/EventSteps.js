@@ -1,8 +1,13 @@
 import React from 'react';
 import { Col, Nav, Row, Table } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import { useLocation } from 'react-router-dom';
 
 const EventSteps = ({ step1, step2, step3, step4, step5, step6 }) => {
+  const search = useLocation().search;
+  const id = new URLSearchParams(search).get('eID');
+
+  console.log(id);
   return (
     <Nav className='mb-4'>
       <Table borderless>
@@ -11,22 +16,18 @@ const EventSteps = ({ step1, step2, step3, step4, step5, step6 }) => {
             <th className='text-center'>
               <Nav.Item>
                 {step1 ? (
-                  <Nav.Link disabled className='button_round_active'>
-                    Step 1
-                  </Nav.Link>
-                ) : (
-                  <LinkContainer to='/events/createEvent/basic'>
-                    <Nav.Link className='button_round'>Step 1</Nav.Link>
+                  <LinkContainer to={`/events/createEvent/basic?eID=${id}`}>
+                    <Nav.Link className='button_round_active'>Step 1</Nav.Link>
                   </LinkContainer>
+                ) : (
+                  <Nav.Link className='button_round'>Step 1</Nav.Link>
                 )}
               </Nav.Item>
             </th>
             <th className='text-center'>
               <Nav.Item>
                 {step2 ? (
-                  <Nav.Link disabled className='button_round'>
-                    Step 2
-                  </Nav.Link>
+                  <Nav.Link className='button_round_active'>Step 2</Nav.Link>
                 ) : (
                   <LinkContainer to='/event/createEvent/whenWhere'>
                     <Nav.Link className='button_round'>Step 2</Nav.Link>
@@ -36,52 +37,44 @@ const EventSteps = ({ step1, step2, step3, step4, step5, step6 }) => {
             </th>
             <th className='text-center'>
               <Nav.Item>
-                {step2 ? (
-                  <Nav.Link disabled className='button_round'>
-                    Step 2
-                  </Nav.Link>
+                {step3 ? (
+                  <Nav.Link className='button_round_active'>Step 3</Nav.Link>
                 ) : (
                   <LinkContainer to='/event/createEvent/whenWhere'>
-                    <Nav.Link className='button_round'>Step 2</Nav.Link>
+                    <Nav.Link className='button_round'>Step 3</Nav.Link>
                   </LinkContainer>
                 )}
               </Nav.Item>
             </th>
             <th>
               <Nav.Item>
-                {step2 ? (
-                  <Nav.Link disabled className='button_round'>
-                    Step 2
-                  </Nav.Link>
+                {step4 ? (
+                  <Nav.Link className='button_round_active'>Step 4</Nav.Link>
                 ) : (
                   <LinkContainer to='/event/createEvent/whenWhere'>
-                    <Nav.Link className='button_round'>Step 2</Nav.Link>
+                    <Nav.Link className='button_round'>Step 4</Nav.Link>
                   </LinkContainer>
                 )}
               </Nav.Item>
             </th>
             <th>
               <Nav.Item>
-                {step2 ? (
-                  <Nav.Link disabled className='button_round'>
-                    Step 2
-                  </Nav.Link>
+                {step5 ? (
+                  <Nav.Link className='button_round_active'>Step 5</Nav.Link>
                 ) : (
                   <LinkContainer to='/event/createEvent/whenWhere'>
-                    <Nav.Link className='button_round'>Step 2</Nav.Link>
+                    <Nav.Link className='button_round'>Step 5</Nav.Link>
                   </LinkContainer>
                 )}
               </Nav.Item>
             </th>
             <th>
               <Nav.Item>
-                {step2 ? (
-                  <Nav.Link disabled className='button_round'>
-                    Step 2
-                  </Nav.Link>
+                {step6 ? (
+                  <Nav.Link className='button_round_active'>Step 6</Nav.Link>
                 ) : (
-                  <LinkContainer to='/event/createEvent/logistics'>
-                    <Nav.Link className='button_round'>Step 2</Nav.Link>
+                  <LinkContainer to='/events/createEvent/logistics'>
+                    <Nav.Link className='button_round'>Step 6</Nav.Link>
                   </LinkContainer>
                 )}
               </Nav.Item>

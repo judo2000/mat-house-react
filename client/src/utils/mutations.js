@@ -221,6 +221,15 @@ export const UPDATE_EVENT = gql`
     $judoDivVI: Boolean
     $judoDivKata: Boolean
     $logo: String
+    $athleteFirstName: Boolean
+    $athleteLastName: Boolean
+    $athleteDOB: Boolean
+    $athleteAddress1: Boolean
+    $athleteAddress2: Boolean
+    $athleteCity: Boolean
+    $athleteState: Boolean
+    $athleteEmail: Boolean
+    $athleteRank: Boolean
   ) {
     updateEvent(
       _id: $id
@@ -251,6 +260,15 @@ export const UPDATE_EVENT = gql`
       judoDivVI: $judoDivVI
       judoDivKata: $judoDivKata
       logo: $logo
+      athleteFirstName: $athleteFirstName
+      athleteLastName: $athleteLastName
+      athleteDOB: $athleteDOB
+      athleteAddress1: $athleteAddress1
+      athleteAddress2: $athleteAddress2
+      athleteCity: $athleteCity
+      athleteState: $athleteState
+      athleteEmail: $athleteEmail
+      athleteRank: $athleteRank
     ) {
       _id
       eventStyle
@@ -280,6 +298,15 @@ export const UPDATE_EVENT = gql`
       judoDivVI
       judoDivKata
       logo
+      athleteFirstName
+      athleteLastName
+      athleteDOB
+      athleteAddress1
+      athleteAddress2
+      athleteCity
+      athleteState
+      athleteEmail
+      athleteRank
     }
   }
 `;
