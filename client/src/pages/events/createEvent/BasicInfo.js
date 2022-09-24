@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import FormContainer from '../../../components/FormContainer';
 import EventSteps from '../../../components/events/EventSteps';
@@ -6,9 +6,14 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import { CREATE_EVENT } from '../../../utils/mutations';
 import ReactQuill from 'react-quill';
+import Loader from '../../../components/Loader';
+import Message from '../../../components/Message';
+import Auth from '../../../utils/auth';
+import { toast, ToastContainer } from 'react-toastify';
 
 const BasicInfo = () => {
   const search = useLocation().search;
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
 
   let [count, setCount] = useState(0);
   const createdBy = new URLSearchParams(search).get('cID');
@@ -19,11 +24,22 @@ const BasicInfo = () => {
   const [eventState, setEventState] = useState('');
   const [eventGenInfo, setEventGenInfo] = useState('');
 
-  const [addEvent] = useMutation(CREATE_EVENT);
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      setErrorMessage('You must be logged in to access this page');
+      toast('You must be logged in to access this page');
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }
+  }, [setErrorMessage, navigate, token]);
+
+  const [loading, error, addEvent] = useMutation(CREATE_EVENT);
 
   //const [errorMessage, setErrorMessage] = useState('');
-
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,13 +47,13 @@ const BasicInfo = () => {
     // let fieldEl = document.getElementById(`customField1`);
     // console.log(fieldEl.value);
 
-    for (let i = 1; i < count + 1; i++) {
-      console.log('i = ', i);
-      // let fieldEl = document.getElementById(`customField${i}`);
-      // let fieldVal = fieldEl.value;
-      // console.log(fieldEl);
-      // customBasicFields.push(fieldVal);
-    }
+    // for (let i = 1; i < count + 1; i++) {
+    //   console.log('i = ', i);
+    // let fieldEl = document.getElementById(`customField${i}`);
+    // let fieldVal = fieldEl.value;
+    // console.log(fieldEl);
+    // customBasicFields.push(fieldVal);
+    // }
     try {
       const { data } = await addEvent({
         variables: {
@@ -51,7 +67,8 @@ const BasicInfo = () => {
         },
       });
       console.log(data);
-      navigate(`/events/createEvent/logistics?eID=${data.addEvent._id}`);
+      navigate(`/events/createEvent/logistics?eId=${data.addEvent._id}`);
+      return data;
     } catch (error) {
       console.log(error);
     }
@@ -93,10 +110,28 @@ const BasicInfo = () => {
 
   return (
     <div className='mt-4'>
-      <h1>Create Event</h1>
+      {errorMessage ? (
+        <h3>
+          <ToastContainer
+            position='top-right'
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+        </h3>
+      ) : (
+        ''
+      )}
       <FormContainer>
         <EventSteps step1 />
         <h4>Basic Information</h4>
+        {loading && <Loader />}
+        {error && <Message variant='danger'>{error}</Message>}
         <div>
           <span className='text-danger'>*</span> indicates required fields.
         </div>
@@ -261,73 +296,6 @@ const BasicInfo = () => {
             </Form.Group>
           </Row>
 
-          {/* <Row>
-            <Form.Group className='mb-3'>
-              <Col>
-                <Row>
-                  <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>
-                      Long Description
-                    </Form.Label>
-                  </Col>
-                  <Col sm={12} md='8' className='text-start'>
-                    <ReactQuill
-                      value={longDesc ? longDesc : ''}
-                      // onChange={(e) => setContent(e.target.value)}
-                      onChange={setLongDesc}
-                      theme='snow'
-                    ></ReactQuill>
-                  </Col>
-                </Row>
-              </Col>
-            </Form.Group>
-          </Row> */}
-
-          {/* <Row>
-            <Form.Group className='my-3'>
-              <Col>
-                <Row>
-                  <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>
-                      Early Entry Deadline{' '}
-                      <span className='text-danger'>*</span>
-                    </Form.Label>
-                  </Col>
-                  <Col sm={12} md={8}>
-                    <Form.Control
-                      type='date'
-                      label='Early Entry Deadline '
-                      id='earlyEntryDeadline'
-                      name='earlyEntryDeadline'
-                      value={earlyEntryDeadline}
-                      onChange={(e) => setEarlyEntryDeadline(e.target.value)}
-                    ></Form.Control>
-                  </Col>
-                </Row>
-              </Col>
-            </Form.Group>
-          </Row> */}
-
-          {/* <Row>
-            <Form.Group className='mb-3'>
-              <Col>
-                <Row>
-                  <Col sm={12} md={2} className='text-center'>
-                    <Form.Label className='form-label'>Waiver</Form.Label>
-                  </Col>
-                  <Col sm={12} md='8' className='text-start'>
-                    <ReactQuill
-                      value={waiver ? waiver : ''}
-                      // onChange={(e) => setContent(e.target.value)}
-                      onChange={setWaiver}
-                      theme='snow'
-                    ></ReactQuill>
-                  </Col>
-                </Row>
-              </Col>
-            </Form.Group>
-          </Row> */}
-
           <Button type='btn' onClick={handleAddFields}>
             Add Custom Fields
           </Button>
@@ -341,5 +309,4 @@ const BasicInfo = () => {
     </div>
   );
 };
-
 export default BasicInfo;

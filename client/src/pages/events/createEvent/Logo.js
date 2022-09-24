@@ -12,48 +12,10 @@ import FormContainer from '../../../components/FormContainer';
 
 const Logo = () => {
   const search = useLocation().search;
-  const id = new URLSearchParams(search).get('eID');
+  const id = new URLSearchParams(search).get('eId');
 
   const [eventStyle, setEventStyle] = useState('');
-  // const [eventType, setEventType] = useState('');
-  // const [eventName, setEventName] = useState('');
-  // const [eventCity, setEventCity] = useState('');
-  // const [eventState, setEventState] = useState('');
-  // const [eventGenInfo, setEventGenInfo] = useState('');
-  // const [eventStartDate, setEventStartDate] = useState('');
-  // const [eventEndDate, setEventEndDate] = useState('');
-  // const [eventWeighInInfo, setEventWeighInInfo] = useState('');
-  // const [earlyEntryDeadline, setEarlyEntryDeadline] = useState('');
-  // const [entryDeadline, setEntryDeadline] = useState('');
-  // const [eventStartTime, setEventStartTime] = useState('');
-  // const [eventWaiver, setEventWaiver] = useState('');
-  // const [earlyFirstEntryFee, setEarlyFirstEntryFee] = useState('');
-  // const [earlyAddEntryFee, setEarlyAddEntryFee] = useState('');
-  // const [lateFirstEntryFee, setLateFirstEntryFee] = useState('');
-  // const [lateAddEntryFee, setLateAddEntryFee] = useState('');
-  // const [judoDivJNov, setJudoDivJNov] = useState('');
-  // const [judoDivJAdv, setJudoDivJAdv] = useState('');
-  // const [judoDivSNov, setJudoDivSNov] = useState('');
-  // const [judoDivSAdv, setJudoDivSAdv] = useState('');
-  // const [judoDivSOpen, setJudoDivSOpen] = useState('');
-  // const [judoDivMNov, setJudoDivMNov] = useState('');
-  // const [judoDivMAdv, setJudoDivMAdv] = useState('');
-  // const [judoDivVI, setJudoDivVI] = useState('');
-  // const [judoDivKata, setJudoDivKata] = useState('');
-  //const [logo, setLogo] = useState(null);
   const [logoUpload, setLogoUpload] = useState(null);
-
-  // const { data, loading } = useQuery(GET_EVENT_BY_ID, {
-  //   variables: { id: id },
-  // });
-
-  // useEffect(() => {
-  //   //   console.log(logo);
-  //   const eventData = data?.eventById || {};
-  //   if (eventData) {
-  //     setEventStyle(eventData.eventStyle);
-  //   }
-  // }, [setEventStyle, data]);
 
   // set up mutations
   const [updateEvent, { error }] = useMutation(UPDATE_EVENT);
@@ -81,7 +43,7 @@ const Logo = () => {
         },
       });
       console.log('DATA!!!!!!! ', data);
-      navigate(`/events/createEvent/athleteInfo?eID=${id}`);
+      navigate(`/events/createEvent/athleteInfo?eId=${id}`);
     } catch (error) {
       console.log(error);
     }
@@ -91,7 +53,7 @@ const Logo = () => {
     <div className='mt-4'>
       <h1>Create Event</h1>
       <FormContainer>
-        <EventSteps step1 step2 step3 step4 />
+        <EventSteps step1 step2 step3 step4 id={id} />
         <h4>Logo</h4>
         <Form onSubmit={uploadLogo} style={{ border: 'solid black 1px' }}>
           <Row>

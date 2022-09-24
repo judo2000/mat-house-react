@@ -25,9 +25,7 @@ const eventSchema = new Schema({
   },
   eventGenInfo: String,
   eventWeighInInfo: String,
-  eventStartDate: {
-    type: Date,
-  },
+  eventStartDate: Date,
   eventEndDate: {
     type: Date,
   },

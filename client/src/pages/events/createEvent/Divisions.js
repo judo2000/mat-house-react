@@ -10,7 +10,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 
 const Divisions = () => {
   const search = useLocation().search;
-  const id = new URLSearchParams(search).get('eID');
+  const id = new URLSearchParams(search).get('eId');
 
   const [eventStyle, setEventStyle] = useState('');
   // const [eventType, setEventType] = useState('');
@@ -47,43 +47,8 @@ const Divisions = () => {
     const eventData = data?.eventById || {};
     if (eventData) {
       setEventStyle(eventData.eventStyle);
-      //     setEventType(eventData.eventType);
-      //     setEventName(eventData.eventName);
-      //     setEventCity(eventData.eventCity);
-      //     setEventState(eventData.eventState);
-      //     setEventGenInfo(eventData.eventGenInfo);
-      //     setEventStartDate(eventData.eventStartDate);
-      //     setEventEndDate(eventData.eventEndDate);
-      //     setEventWeighInInfo(eventData.eventWeighInInfo);
-      //     setEarlyEntryDeadline(eventData.earlyEntryDeadline);
-      //     setEntryDeadline(eventData.entryDeadline);
-      //     setEventStartTime(eventData.eventStartTime);
-      //     setEventWaiver(eventData.eventWaiver);
-      //     setEarlyFirstEntryFee(eventData.earlyFirstEntryFee);
-      //     setEarlyAddEntryFee(eventData.earlyAddEntryFee);
-      //     setLateFirstEntryFee(eventData.lateFirstEntryFee);
-      //     setLateAddEntryFee(eventData.lateAddEntryFee);
     }
-  }, [
-    setEventStyle,
-    //   setEventType,
-    //   setEventName,
-    //   setEventCity,
-    //   setEventState,
-    //   setEventGenInfo,
-    //   setEventStartDate,
-    //   setEventEndDate,
-    //   setEventWeighInInfo,
-    //   setEarlyEntryDeadline,
-    //   setEntryDeadline,
-    //   setEventStartTime,
-    //   setEventWaiver,
-    //   setEarlyFirstEntryFee,
-    //   setEarlyAddEntryFee,
-    //   setLateFirstEntryFee,
-    //   setLateAddEntryFee,
-    data,
-  ]);
+  }, [setEventStyle, data]);
 
   // set up mutations
   const [updateEvent, { error }] = useMutation(UPDATE_EVENT);
@@ -95,23 +60,6 @@ const Divisions = () => {
       const { data } = await updateEvent({
         variables: {
           id,
-          // eventStyle,
-          // eventType,
-          // eventName,
-          // eventCity,
-          // eventState,
-          // eventGenInfo,
-          // eventStartDate,
-          // eventEndDate,
-          // eventWeighInInfo,
-          // earlyEntryDeadline,
-          // entryDeadline,
-          // earlyFirstEntryFee,
-          // earlyAddEntryFee,
-          // lateFirstEntryFee,
-          // lateAddEntryFee,
-          // eventStartTime,
-          // eventWaiver,
           judoDivJNov,
           judoDivJAdv,
           judoDivSNov,
@@ -124,7 +72,7 @@ const Divisions = () => {
         },
       });
       console.log('DATA!!!!!!! ', data);
-      navigate(`/events/createEvent/logo?eID=${id}`);
+      navigate(`/events/createEvent/logo?eId=${id}`);
     } catch (error) {
       console.log(error);
     }
@@ -133,7 +81,7 @@ const Divisions = () => {
     <div className='mt-4'>
       <h1>Create Event</h1>
       <FormContainer>
-        <EventSteps step1 step2 />
+        <EventSteps step1 step2 id={id} />
         <h4>Logistics Information</h4>
         <div>
           <span className='text-danger'>*</span>
@@ -238,9 +186,7 @@ const Divisions = () => {
             <h1>BJJ</h1>
           )}
 
-          <Button variant='primary' type='submit'>
-            Submit
-          </Button>
+          <Button type='submit'>Submit</Button>
         </Form>
       </FormContainer>
     </div>

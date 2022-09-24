@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { useQuery } from '@apollo/client';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import ReactQuill from 'react-quill';
 import { useNavigate } from 'react-router-dom';
 import { CREATE_CLUB } from '../utils/mutations';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useEffect } from 'react';
-import { GET_LAST_CLUB } from '../utils/queries';
-import { GET_ME } from '../utils/queries';
 import Auth from '../utils/auth';
-import jwt from 'jwt-decode';
+import Loader from '../components/Loader';
+import Message from '../components/Message';
 
 const CreateClub = ({ modal, handleShow }) => {
   const token = Auth.loggedIn() ? Auth.getToken() : null;
-  console.log(token);
-  const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!token) {
-  //     toast('Login');
-  //     // const timer = setTimeout(() => {
-  //     //   navigate('/clubs');
-  //     // }, 3000);
-  //   }
-  // }, [toast]);
 
-  if (token) {
-    const user = jwt(token);
-  }
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      setErrorMessage('You must be logged in to access this page');
+      toast('You must be logged in to access this page');
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }
+  }, [setErrorMessage, navigate, token]);
+
+  // if (token) {
+  //   const user = jwt(token);
+  // }
 
   const [clubName, setClubName] = useState('');
   const [address, setAddress] = useState('');
@@ -45,9 +45,7 @@ const CreateClub = ({ modal, handleShow }) => {
   const [about, setAbout] = useState('');
   const [headInstructor, setHeadInstructor] = useState('');
 
-  const [addClub, { error }] = useMutation(CREATE_CLUB);
-
-  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, addClub, { error }] = useMutation(CREATE_CLUB);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,6 +69,7 @@ const CreateClub = ({ modal, handleShow }) => {
         },
       });
       window.location.href = '/clubs';
+      return data;
     } catch (error) {
       setErrorMessage(error.message);
       if (error.message.includes('Slug is missing')) {
@@ -91,6 +90,8 @@ const CreateClub = ({ modal, handleShow }) => {
   };
   return (
     <Container className='mt-4'>
+      {loading && <Loader />}
+      {error && <Message variant='danger'>{error}</Message>}
       {token ? (
         <Row>
           <Col sm={12} md={10}>

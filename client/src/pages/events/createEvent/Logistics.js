@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_EVENT_BY_ID } from '../../../utils/queries';
 import { UPDATE_EVENT } from '../../../utils/mutations';
-import { Loader } from '../../../components/Loader';
+import Loader from '../../../components/Loader';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import FormContainer from '../../../components/FormContainer';
 import EventSteps from '../../../components/events/EventSteps';
 import ReactQuill from 'react-quill';
+import Auth from '../../../utils/auth';
+import { toast, ToastContainer } from 'react-toastify';
+import { GET_EVENT_BY_ID } from '../../../utils/queries';
+import moment from 'moment';
 
 const Logistics = () => {
   const search = useLocation().search;
-  const id = new URLSearchParams(search).get('eID');
+  const id = new URLSearchParams(search).get('eId');
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
 
-  // const [eventStyle, setEventStyle] = useState('');
-  // const [eventType, setEventType] = useState('');
-  // const [eventName, setEventName] = useState('');
-  // const [eventCity, setEventCity] = useState('');
-  // const [eventState, setEventState] = useState('');
-  // const [eventGenInfo, setEventGenInfo] = useState('');
   const [eventStartDate, setEventStartDate] = useState('');
   const [eventEndDate, setEventEndDate] = useState('');
   const [eventWeighInInfo, setEventWeighInInfo] = useState('');
@@ -31,43 +29,56 @@ const Logistics = () => {
   const [lateFirstEntryFee, setLateFirstEntryFee] = useState('');
   const [lateAddEntryFee, setLateAddEntryFee] = useState('');
 
-  // const { data, loading } = useQuery(GET_EVENT_BY_ID, {
-  //   variables: { id: id },
-  // });
-  // console.log(id);
-  // console.log('DATA ', data);
-  // useEffect(() => {
-  //   const eventData = data?.eventById || {};
+  const { loading, data } = useQuery(GET_EVENT_BY_ID, {
+    variables: { id: id },
+  });
 
-  //   if (eventData) {
-  //     setEventStyle(eventData.eventStyle);
-  //     setEventType(eventData.eventType);
-  //     setEventName(eventData.eventName);
-  //     setEventCity(eventData.eventCity);
-  //     setEventState(eventData.eventState);
-  //     setEventGenInfo(eventData.eventGenInfo);
-  //     //setEventStartDate(eventData.eventGenInfo);
-  //     //setEarlyEntryDeadline(eventData.earlyEntryDeadline);
-  //     // const convertedEarlyEntryDeadline = parseInt(
-  //     //   eventData.earlyEntryDeadline
-  //     // );
-  //     // setEarlyEntryDeadline(
-  //     //   moment(convertedEarlyEntryDeadline).format('MM/DD/YYYY')
-  //     // );
-  //   }
-  // }, [
-  //   setEventStyle,
-  //   setEventType,
-  //   setEventName,
-  //   setEventCity,
-  //   setEventState,
-  //   setEventGenInfo,
-  //   data,
-  // ]);
+  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!token) {
+      setErrorMessage('You must be logged in to access this page');
+      toast('You must be logged in to access this page');
+      setTimeout(() => {
+        navigate('/');
+      }, 3000);
+    }
+    const eventData = data?.eventById || {};
+
+    if (eventData) {
+      setEventStartDate(eventData.eventStartDate);
+      setEventEndDate(eventData.eventEndDate);
+      setEventWeighInInfo(eventData.eventWeighInInfo);
+      setEarlyEntryDeadline(eventData.earlyEntryDeadline);
+      setEntryDeadline(eventData.entryDeadline);
+      setEventStartTime(eventData.eventStartTime);
+      setEventWaiver(eventData.eventWaiver);
+      setEarlyFirstEntryFee(eventData.earlyFirstEntryFee);
+      setEarlyAddEntryFee(eventData.earlyAddEntryFee);
+      setLateFirstEntryFee(eventData.lateFirstEntryFee);
+      setLateAddEntryFee(eventData.lateAddEntryFee);
+    }
+  }, [
+    setErrorMessage,
+    navigate,
+    token,
+    setEventStartDate,
+    setEventEndDate,
+    setEventWeighInInfo,
+    setEarlyEntryDeadline,
+    setEntryDeadline,
+    setEventStartTime,
+    setEventWaiver,
+    setEarlyFirstEntryFee,
+    setEarlyAddEntryFee,
+    setLateFirstEntryFee,
+    setLateAddEntryFee,
+    data,
+  ]);
 
   // set up mutation
-  const [updateEvent, { error }] = useMutation(UPDATE_EVENT);
-  const navigate = useNavigate();
+  const [updateEvent] = useMutation(UPDATE_EVENT);
 
   // const buildDateforForm = (date) => {
   //   let month = moment(date).month().toString();
@@ -90,23 +101,14 @@ const Logistics = () => {
   //   let revDate = new Date(`${year}-${month}-${day}Z`);
   //   return revDate;
   // };
-  // console.log(earlyEntryDeadline);
+  // console.log(buildDateforForm(earlyEntryDeadline));
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(typeof earlyFirstEntryFee);
-    console.log(typeof earlyAddEntryFee);
-    console.log(typeof lateFirstEntryFee);
-    console.log(typeof lateAddEntryFee);
+
     try {
       const { data } = await updateEvent({
         variables: {
           id,
-          // eventStyle,
-          // eventType,
-          // eventName,
-          // eventCity,
-          // eventState,
-          // eventGenInfo,
           eventStartDate,
           eventEndDate,
           eventWeighInInfo,
@@ -121,7 +123,7 @@ const Logistics = () => {
         },
       });
       console.log('DATA!!!!!!! ', data);
-      navigate(`/events/createEvent/divisions?eID=${id}`);
+      navigate(`/events/createEvent/divisions?eId=${id}`);
     } catch (error) {
       console.log(error);
     }
@@ -129,10 +131,28 @@ const Logistics = () => {
 
   return (
     <div className='mt-4'>
+      {errorMessage ? (
+        <h3>
+          <ToastContainer
+            position='top-right'
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+        </h3>
+      ) : (
+        ''
+      )}
       <h1>Create Event</h1>
       <FormContainer>
-        <EventSteps step1 step2 />
+        <EventSteps step1 step2 id={id} />
         <h4>Logistics Information</h4>
+        {loading && <Loader />}
         <div>
           <span className='text-danger'>*</span>
         </div>
@@ -375,12 +395,12 @@ const Logistics = () => {
                   </Col>
                   <Col sm={12} md={8}>
                     <Form.Control
-                      type='time'
-                      label='Event Start Time'
-                      id='eventStartTime'
-                      name='eventStartTime'
-                      value={eventStartTime}
-                      onChange={(e) => setEventStartTime(e.target.value)}
+                      type='date'
+                      label='Early Entry Deadline '
+                      id='earlyEntryDeadline'
+                      name='earlyEntryDeadline'
+                      value={earlyEntryDeadline}
+                      onChange={(e) => setEarlyEntryDeadline(e.target.value)}
                     ></Form.Control>
                   </Col>
                 </Row>

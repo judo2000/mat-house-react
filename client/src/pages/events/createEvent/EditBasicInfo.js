@@ -5,18 +5,18 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import EventSteps from '../../../components/events/EventSteps';
 import FormContainer from '../../../components/FormContainer';
 import Auth from '../../../utils/auth';
-import jwt from 'jwt-decode';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_EVENT_BY_ID } from '../../../utils/queries';
 import { UPDATE_EVENT } from '../../../utils/mutations';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from '../../../components/Loader';
 
 const EditBasicInfo = () => {
   const token = Auth.loggedIn() ? Auth.getToken() : null;
 
   const search = useLocation().search;
-  const id = new URLSearchParams(search).get('eID');
+  const id = new URLSearchParams(search).get('eId');
 
   const [eventStyle, setEventStyle] = useState('');
   const [eventType, setEventType] = useState('');
@@ -25,7 +25,7 @@ const EditBasicInfo = () => {
   const [eventState, setEventState] = useState('');
   const [eventGenInfo, setEventGenInfo] = useState('');
 
-  const { data, loading } = useQuery(GET_EVENT_BY_ID, {
+  const { loading, data } = useQuery(GET_EVENT_BY_ID, {
     variables: { id: id },
   });
 
@@ -36,7 +36,7 @@ const EditBasicInfo = () => {
     if (!token) {
       setErrorMessage('You must be logged in to access this page');
       toast('You must be logged in to access this page');
-      const timer = setTimeout(() => {
+      setTimeout(() => {
         navigate('/');
       }, 3000);
     }
@@ -63,7 +63,7 @@ const EditBasicInfo = () => {
   ]);
 
   // set up mutation
-  const [updateEvent, { error }] = useMutation(UPDATE_EVENT);
+  const [updateEvent] = useMutation(UPDATE_EVENT);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -106,7 +106,8 @@ const EditBasicInfo = () => {
           eventGenInfo,
         },
       });
-      navigate(`/events/createEvent/logistics?eId${id}`);
+      navigate(`/events/createEvent/logistics?eID${id}`);
+      return data;
     } catch (error) {
       console.log(error);
       setErrorMessage(error.message);
@@ -147,8 +148,9 @@ const EditBasicInfo = () => {
       )}
       <h1>Create Event</h1>
       <FormContainer>
-        <EventSteps step1 />
+        <EventSteps step1 id={id} />
         <h4>Basic Information</h4>
+        {loading && <Loader />}
         <div>
           <span className='text-danger'>*</span> indicates required fields.
         </div>

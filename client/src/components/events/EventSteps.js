@@ -1,12 +1,10 @@
 import React from 'react';
-import { Col, Nav, Row, Table } from 'react-bootstrap';
+import { Nav, Table } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { useLocation } from 'react-router-dom';
 
-const EventSteps = ({ step1, step2, step3, step4, step5, step6 }) => {
-  const search = useLocation().search;
-  const id = new URLSearchParams(search).get('eID');
-
+const EventSteps = ({ id, step1, step2, step3, step4, step5, step6 }) => {
+  // const search = useLocation().search;
+  // const eid = new URLSearchParams(search).get('eId');
   console.log(id);
   return (
     <Nav className='mb-4'>
@@ -16,18 +14,18 @@ const EventSteps = ({ step1, step2, step3, step4, step5, step6 }) => {
             <th className='text-center'>
               <Nav.Item>
                 {step1 ? (
-                  <LinkContainer to={`/events/createEvent/editbasic?eID=${id}`}>
-                    <Nav.Link className='button_round_active'>Step 1</Nav.Link>
+                  <LinkContainer to={`/events/createEvent/editbasic?eId=${id}`}>
+                    <Nav.Link className='button_round_active'>Step 1?</Nav.Link>
                   </LinkContainer>
                 ) : (
-                  <Nav.Link className='button_round'>Step 1</Nav.Link>
+                  <Nav.Link className='button_round'>Step 1?</Nav.Link>
                 )}
               </Nav.Item>
             </th>
             <th className='text-center'>
               <Nav.Item>
                 {step2 ? (
-                  <Nav.Link className='button_round_active'>Step 2</Nav.Link>
+                  <Nav.Link className='button_round_active'>Step 2?</Nav.Link>
                 ) : (
                   <LinkContainer to='/event/createEvent/whenWhere'>
                     <Nav.Link className='button_round'>Step 2</Nav.Link>
