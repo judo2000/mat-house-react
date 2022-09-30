@@ -84,6 +84,7 @@ export const GET_EVENTS = gql`
       eventCity
       eventState
       eventGenInfo
+      eventStartDate
       slug
     }
   }

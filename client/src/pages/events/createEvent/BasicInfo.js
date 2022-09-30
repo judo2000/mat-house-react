@@ -37,7 +37,7 @@ const BasicInfo = () => {
     }
   }, [setErrorMessage, navigate, token]);
 
-  const [loading, error, addEvent] = useMutation(CREATE_EVENT);
+  const [addEvent] = useMutation(CREATE_EVENT);
 
   //const [errorMessage, setErrorMessage] = useState('');
 
@@ -130,8 +130,6 @@ const BasicInfo = () => {
       <FormContainer>
         <EventSteps step1 />
         <h4>Basic Information</h4>
-        {loading && <Loader />}
-        {error && <Message variant='danger'>{error}</Message>}
         <div>
           <span className='text-danger'>*</span> indicates required fields.
         </div>

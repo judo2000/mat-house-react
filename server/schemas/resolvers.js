@@ -28,6 +28,9 @@ const resolvers = {
     },
     events: async () => {
       let events = await Event.find({});
+
+      events.sort((a, b) => a.eventStartDate - b.eventStartDate);
+
       return events;
     },
     eventById: async (parent, _id) => {

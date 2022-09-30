@@ -15,6 +15,7 @@ import moment from 'moment';
 const Logistics = () => {
   const search = useLocation().search;
   const id = new URLSearchParams(search).get('eId');
+  console.log(id);
   const token = Auth.loggedIn() ? Auth.getToken() : null;
 
   const [eventStartDate, setEventStartDate] = useState('');
@@ -32,7 +33,7 @@ const Logistics = () => {
   const { loading, data } = useQuery(GET_EVENT_BY_ID, {
     variables: { id: id },
   });
-
+  console.log(data);
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
@@ -45,24 +46,24 @@ const Logistics = () => {
       }, 3000);
     }
     const eventData = data?.eventById || {};
-
-    if (eventData) {
-      setEventStartDate(eventData.eventStartDate);
-      setEventEndDate(eventData.eventEndDate);
-      setEventWeighInInfo(eventData.eventWeighInInfo);
-      setEarlyEntryDeadline(eventData.earlyEntryDeadline);
-      setEntryDeadline(eventData.entryDeadline);
-      setEventStartTime(eventData.eventStartTime);
-      setEventWaiver(eventData.eventWaiver);
-      setEarlyFirstEntryFee(eventData.earlyFirstEntryFee);
-      setEarlyAddEntryFee(eventData.earlyAddEntryFee);
-      setLateFirstEntryFee(eventData.lateFirstEntryFee);
-      setLateAddEntryFee(eventData.lateAddEntryFee);
-    }
+    let tempDate = parseInt(eventData.eventStartDate);
+    setEventStartDate(moment(tempDate).add(1, 'days').format('YYYY-MM-DD'));
+    tempDate = parseInt(eventData.eventEndDate);
+    setEventEndDate(moment(tempDate).add(1, 'days').format('YYYY-MM-DD'));
+    setEventWeighInInfo(eventData.eventWeighInInfo);
+    setEarlyEntryDeadline(eventData.earlyEntryDeadline);
+    setEntryDeadline(eventData.entryDeadline);
+    setEventStartTime(eventData.eventStartTime);
+    setEventWaiver(eventData.eventWaiver);
+    setEarlyFirstEntryFee(eventData.earlyFirstEntryFee);
+    setEarlyAddEntryFee(eventData.earlyAddEntryFee);
+    setLateFirstEntryFee(eventData.lateFirstEntryFee);
+    setLateAddEntryFee(eventData.lateAddEntryFee);
   }, [
     setErrorMessage,
     navigate,
     token,
+    data,
     setEventStartDate,
     setEventEndDate,
     setEventWeighInInfo,
@@ -74,37 +75,19 @@ const Logistics = () => {
     setEarlyAddEntryFee,
     setLateFirstEntryFee,
     setLateAddEntryFee,
-    data,
   ]);
 
   // set up mutation
   const [updateEvent] = useMutation(UPDATE_EVENT);
+  console.log('EVENT START DATE ', moment(eventStartDate).format('MM-DD-YYYY'));
+  // const tempDate = parseInt(eventStartDate);
+  // const date = new Date(tempDate);
+  // const newDate = moment(date).add(1, 'days').format('YYYY/MM/DD');
+  // console.log('NEW DATE ', newDate);
 
-  // const buildDateforForm = (date) => {
-  //   let month = moment(date).month().toString();
-  //   let day = moment(date).day().toString();
-  //   let year = moment(date).year().toString();
-  //   if (month < 10) {
-  //     month = '0' + month;
-  //   }
-  //   if (day < 10) {
-  //     day = '0' + day;
-  //   }
-  //   return `${year}-${month}-${day}`;
-  // };
-
-  // const reverseDateForSave = (date) => {
-  //   let newDate = date.split('/');
-  //   let month = newDate[0];
-  //   let day = newDate[1];
-  //   let year = newDate[2];
-  //   let revDate = new Date(`${year}-${month}-${day}Z`);
-  //   return revDate;
-  // };
-  // console.log(buildDateforForm(earlyEntryDeadline));
+  console.log('EVENT START DATE ', eventStartDate);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const { data } = await updateEvent({
         variables: {
@@ -122,13 +105,13 @@ const Logistics = () => {
           eventWaiver,
         },
       });
+      console.log(moment(eventStartDate).format('MM-DD-YYYY'));
       console.log('DATA!!!!!!! ', data);
-      navigate(`/events/createEvent/divisions?eId=${id}`);
+      //navigate(`/events/createEvent/divisions?eId=${id}`);
     } catch (error) {
       console.log(error);
     }
   };
-
   return (
     <div className='mt-4'>
       {errorMessage ? (
@@ -166,6 +149,7 @@ const Logistics = () => {
                       Event Start Date <span className='text-danger'>*</span>
                     </Form.Label>
                   </Col>
+                  {eventStartDate}
                   <Col sm={12} md={8}>
                     <Form.Control
                       type='date'
@@ -395,12 +379,12 @@ const Logistics = () => {
                   </Col>
                   <Col sm={12} md={8}>
                     <Form.Control
-                      type='date'
-                      label='Early Entry Deadline '
-                      id='earlyEntryDeadline'
-                      name='earlyEntryDeadline'
-                      value={earlyEntryDeadline}
-                      onChange={(e) => setEarlyEntryDeadline(e.target.value)}
+                      type='time'
+                      label='Event Start Time'
+                      id='eventStartTime'
+                      name='eventStartTime'
+                      value={eventStartTime}
+                      onChange={(e) => setEventStartTime(e.target.value)}
                     ></Form.Control>
                   </Col>
                 </Row>
