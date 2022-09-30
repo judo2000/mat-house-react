@@ -51,8 +51,10 @@ const Logistics = () => {
     tempDate = parseInt(eventData.eventEndDate);
     setEventEndDate(moment(tempDate).add(1, 'days').format('YYYY-MM-DD'));
     setEventWeighInInfo(eventData.eventWeighInInfo);
-    setEarlyEntryDeadline(eventData.earlyEntryDeadline);
-    setEntryDeadline(eventData.entryDeadline);
+    tempDate = parseInt(eventData.earlyEntryDeadline);
+    setEarlyEntryDeadline(moment(tempDate).add(1, 'days').format('YYYY-MM-DD'));
+    tempDate = parseInt(eventData.entryDeadline);
+    setEntryDeadline(moment(tempDate).add(1, 'days').format('YYYY-MM-DD'));
     setEventStartTime(eventData.eventStartTime);
     setEventWaiver(eventData.eventWaiver);
     setEarlyFirstEntryFee(eventData.earlyFirstEntryFee);
@@ -107,7 +109,7 @@ const Logistics = () => {
       });
       console.log(moment(eventStartDate).format('MM-DD-YYYY'));
       console.log('DATA!!!!!!! ', data);
-      //navigate(`/events/createEvent/divisions?eId=${id}`);
+      navigate(`/events/createEvent/divisions?eId=${id}`);
     } catch (error) {
       console.log(error);
     }
@@ -149,7 +151,6 @@ const Logistics = () => {
                       Event Start Date <span className='text-danger'>*</span>
                     </Form.Label>
                   </Col>
-                  {eventStartDate}
                   <Col sm={12} md={8}>
                     <Form.Control
                       type='date'

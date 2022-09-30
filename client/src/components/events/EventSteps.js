@@ -15,21 +15,21 @@ const EventSteps = ({ id, step1, step2, step3, step4, step5, step6 }) => {
               <Nav.Item>
                 {step1 ? (
                   <LinkContainer to={`/events/createEvent/editbasic?eId=${id}`}>
-                    <Nav.Link className='button_round_active'>Step 1?</Nav.Link>
+                    <Nav.Link className='button_round_active'>Step 1</Nav.Link>
                   </LinkContainer>
                 ) : (
-                  <Nav.Link className='button_round'>Step 1?</Nav.Link>
+                  <Nav.Link className='button_round'>Step 1</Nav.Link>
                 )}
               </Nav.Item>
             </th>
             <th className='text-center'>
               <Nav.Item>
                 {step2 ? (
-                  <Nav.Link className='button_round_active'>Step 2?</Nav.Link>
-                ) : (
-                  <LinkContainer to='/event/createEvent/whenWhere'>
-                    <Nav.Link className='button_round'>Step 2</Nav.Link>
+                  <LinkContainer to={`/events/createEvent/logistics?dId=${id}`}>
+                    <Nav.Link className='button_round_active'>Step 2</Nav.Link>
                   </LinkContainer>
+                ) : (
+                  <Nav.Link className='button_round'>Step 2</Nav.Link>
                 )}
               </Nav.Item>
             </th>
@@ -38,7 +38,7 @@ const EventSteps = ({ id, step1, step2, step3, step4, step5, step6 }) => {
                 {step3 ? (
                   <Nav.Link className='button_round_active'>Step 3</Nav.Link>
                 ) : (
-                  <LinkContainer to='/event/createEvent/whenWhere'>
+                  <LinkContainer to={`/events/createEvent/divisions?eId=${id}`}>
                     <Nav.Link className='button_round'>Step 3</Nav.Link>
                   </LinkContainer>
                 )}

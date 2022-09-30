@@ -17,14 +17,32 @@ const Events = () => {
         <Loader />
       ) : (
         <Row>
-          {!eventsData ? (
+          {eventsData ? (
             eventsData.map((event, index) => {
               return (
-                <Col sm={12} md={6} key={index} className='pt-4'>
-                  <Card style={{ border: 'solid black 1px' }}>
-                    <Card.Title>{event.eventName}</Card.Title>
-                    <Card.Body>
-                      <NavLink to={event.slug}>{event.slug}</NavLink>
+                <Col sm={12} md={3} key={index} className='pt-4'>
+                  <Card
+                    style={{
+                      height: '350px',
+                      border: 'solid #000000 1px',
+                      backgroundColor: 'lightgray',
+                      opacity: 0.8,
+                      background: `lightgray `,
+                    }}
+                  >
+                    <Card.Title className='pb-0'>
+                      {event.eventName}
+                      <br />
+                    </Card.Title>
+                    <Card.Body
+                      className='row align-items-end pt-0 text-center'
+                      style={{
+                        background: `url(${event.logo}) center no-repeat`,
+                      }}
+                    >
+                      <NavLink className='text-black' to={event.slug}>
+                        Click here for details
+                      </NavLink>
                     </Card.Body>
                   </Card>
                 </Col>

@@ -85,6 +85,7 @@ export const GET_EVENTS = gql`
       eventState
       eventGenInfo
       eventStartDate
+      logo
       slug
     }
   }
