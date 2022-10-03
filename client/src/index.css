@@ -447,3 +447,16 @@ input:focus::placeholder {
 .Toastify__toast > button > svg {
   display: none;
 }
+
+.eventBgImage {
+  padding: 0;
+  margin: 0;
+}
+
+.eventCard {
+  color: #000000;
+}
+
+.eventCard:hover {
+  color: gray;
+}
