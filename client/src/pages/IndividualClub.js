@@ -2,16 +2,10 @@ import React from 'react';
 import jwt from 'jwt-decode';
 import Auth from '../utils/auth';
 import { useMutation, useQuery } from '@apollo/client';
-import {
-  Link,
-  useNavigate,
-  NavLink,
-  useLocation,
-  useParams,
-} from 'react-router-dom';
+import { NavLink, useLocation, useParams } from 'react-router-dom';
 import { GET_CLUB } from '../utils/queries';
 import Loader from '../components/Loader';
-import { Button, CloseButton, Col, Row, Table } from 'react-bootstrap';
+import { Button, Col, Row } from 'react-bootstrap';
 import ClubButton from '../components/club/ClubButton';
 import ClubHome from '../components/club/ClubHome';
 import ClubContact from '../components/club/ClubContact';
@@ -20,7 +14,6 @@ import ClubInstructors from '../components/club/ClubInstructors';
 import ClubAbout from '../components/club/ClubAbout';
 import ClubMessages from '../components/club/ClubMessages';
 import EditClub from '../components/club/EditClub';
-import { GET_ME } from '../utils/queries';
 import { JOIN_CLUB } from '../utils/mutations';
 
 const IndividualClub = () => {
@@ -48,6 +41,7 @@ const IndividualClub = () => {
         if (member._id === user.data._id) {
           return (member_type = 'Member');
         }
+        return '';
       });
       if (member_type !== 'Member') {
         const admins = club.clubAdmins;
@@ -55,6 +49,7 @@ const IndividualClub = () => {
           if (admin._id === user.data._id) {
             return (member_type = 'Admin');
           }
+          return '';
         });
       }
     }

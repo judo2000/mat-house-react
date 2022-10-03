@@ -4,9 +4,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { useLocation, useNavigate } from 'react-router-dom';
 import EventSteps from '../../../components/events/EventSteps';
 import FormContainer from '../../../components/FormContainer';
-import Loader from '../../../components/Loader';
 import { UPDATE_EVENT } from '../../../utils/mutations';
-import Message from '../../../components/Message';
 import Auth from '../../../utils/auth';
 import { toast, ToastContainer } from 'react-toastify';
 import { GET_EVENT_BY_ID } from '../../../utils/queries';
@@ -26,7 +24,7 @@ const AthleteInfo = () => {
   const [athleteEmail, setAthleteEmail] = useState(false);
   const [athleteRank, setAthleteRank] = useState(false);
 
-  const { loading, data } = useQuery(GET_EVENT_BY_ID, {
+  const { data } = useQuery(GET_EVENT_BY_ID, {
     variables: { id: id },
   });
   const navigate = useNavigate();

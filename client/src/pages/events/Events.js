@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/client';
 import { GET_EVENTS } from '../../utils/queries';
 import Loader from '../../components/Loader';
 import { Card, Col, Row } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 
@@ -35,6 +34,7 @@ const Events = () => {
                         border: 'solid #000000 1px',
                         background: `lightgray`,
                       }}
+                      className='pt-2'
                     >
                       <Card.Title
                         style={{ opacity: 1 }}
@@ -61,9 +61,7 @@ const Events = () => {
                         ) : (
                           <br />
                         )}
-                        <NavLink className='text-black' to={event.slug}>
-                          Event Details
-                        </NavLink>
+                        <u>Event Details</u>
                       </Card.Body>
                     </Card>
                   </Link>
